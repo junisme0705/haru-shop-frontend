@@ -1,0 +1,98 @@
+[
+    {
+        "name": "Chuột Gaming ATK Blazing Sky F1 Black",
+        "price": 1550000,
+        "image": "IMG/ATK_Blazing_Sky_F1_Black.PNG",
+        "category": "mice"
+    },
+    {
+        "name": "Chuột Gaming ATK Blazing Sky X1 White",
+        "price": 1550000,
+        "image": "IMG/ATK_Blazing_Sky_X1_White.png",
+        "category": "mice"
+    },
+    {
+        "name": "Chuột Gaming Logitech G502 X",
+        "price": 1890000,
+        "image": "IMG/LogitechG502X.png",
+        "category": "mice"
+    },
+    {
+        "name": "Chuột Gaming Razer DeathAdder V3 Pro",
+        "price": 3200000,
+        "image": "IMG/RazerV3Pro.png",
+        "category": "mice"
+    },
+    {
+        "name": "Chuột Gaming VGN F1 Pro Max",
+        "price": 1150000,
+        "image": "IMG/VGNF1ProMax.png",
+        "category": "mice"
+    },
+    {
+        "name": "Chuột Gaming Ninjutso Sora",
+        "price": 2400000,
+        "image": "IMG/NinjutsoSora.webp",
+        "category": "mice"
+    },
+    {
+        "name": "Bàn phím cơ Wooting 60HE",
+        "price": 4500000,
+        "image": "IMG/Wooting60HE.png",
+        "category": "keyboard"
+    },
+    {
+        "name": "Kit Bàn phím Weikav Lucky65",
+        "price": 1250000,
+        "image": "IMG/WeikavLucky65.PNG",
+        "category": "keyboard"
+    },
+    {
+        "name": "Bàn phím cơ DrunkDeer A75",
+        "price": 2500000,
+        "image": "IMG/DrunkDeerA75.PNG",
+        "category": "keyboard"
+    },
+    {
+        "name": "Bàn phím cơ ATK Edge 60 HE",
+        "price": 2100000,
+        "image": "IMG/ATK_Edge_60_HE.png",
+        "category": "keyboard"
+    },
+    {
+        "name": "Kit Bàn phím MonsGeek M1 HE",
+        "price": 1850000,
+        "image": "IMG/MonsGeekM1HE.png",
+        "category": "keyboard"
+    },
+    {
+        "name": "Tai nghe Gaming HyperX Cloud 2",
+        "price": 1650000,
+        "image": "IMG/HyperXCloud2.jpg",
+        "category": "headphone"
+    },
+    {
+        "name": "Tai nghe In-ear Moondrop LAN",
+        "price": 850000,
+        "image": "IMG/moondropLan.png",
+        "category": "headphone"
+    },
+    {
+        "name": "Tai nghe In-ear Simgot EW300",
+        "price": 1100000,
+        "image": "IMG/SimgotEW300.png",
+        "category": "headphone"
+    },
+    {
+        "name": "Lót chuột ATK Fierce X Black",
+        "price": 650000,
+        "image": "IMG/ATK_Fierce_X_Black.png",
+        "category": "accessories"
+    },
+    {
+        "name": "Lót chuột Pad God Chosen",
+        "price": 850000,
+        "image": "IMG/padGodChosen.png",
+        "category": "accessories"
+    }
+]

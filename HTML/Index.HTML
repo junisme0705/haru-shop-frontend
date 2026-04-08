@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - Haru</title>
+
+    <link rel="stylesheet" href="../CSS/style.CSS">
+    <link rel="stylesheet" href="../CSS/HeaderFooter.css">
+    <link rel="stylesheet" href="../CSS/Collection.CSS">
+    <link rel="stylesheet" href="../CSS/QuickView.css">
+    <link rel="stylesheet" href="../CSS/GiveawayIndex.CSS">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* ÉP BUỘC HIỂN THỊ 5 SẢN PHẨM/HÀNG CHO TRANG CHỦ ĐỂ KHÔNG BỊ GIÃN TO */
+        @media (min-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(5, 1fr) !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="homepage">
+    <header class="main-header">
+        <div class="header-left">
+            <div class="logo"><a href="Index.HTML">Haru</a></div>
+        </div>
+
+        <nav class="header-nav">
+            <div class="nav-close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul>
+                <li><a href="Index.HTML" class="active">TRANG CHỦ</a></li>
+                <li><a href="Mice.HTML">CHUỘT</a></li>
+                <li><a href="Keyboard.HTML">BÀN PHÍM</a></li>
+                <li><a href="Headphone.HTML">TAI NGHE</a></li>
+                <li><a href="Accessories.HTML">ACCESSORIES</a></li>
+
+                <li class="nav-item-dropdown">
+                    <a href="#">HƯỚNG DẪN <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">Tải phần mềm</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="Icon-NguoiDung">
+                <a href="#" class="header-icon-link" id="header-search-icon"><i class="fas fa-search"></i></a>
+
+                <div class="user-menu-container" id="user-menu-logged-out">
+                    <a href="Login.HTML" class="header-icon-link"><i class="fas fa-user"></i></a>
+                    <div class="user-dropdown-menu">
+                        <a href="Login.HTML" class="dropdown-item">Đăng nhập</a>
+                        <a href="Register.HTML" class="dropdown-item">Đăng ký</a>
+                    </div>
+                </div>
+
+                <div class="user-menu-container" id="user-menu-logged-in" style="display: none;">
+                    <a href="Profile.HTML" class="header-icon-link" id="current-username"></a>
+                    <div class="user-dropdown-menu">
+                        <a href="Profile.HTML" class="dropdown-item">Tài khoản của tôi</a>
+                        <a href="#" class="dropdown-item" id="logout-button">Đăng xuất</a>
+                    </div>
+                </div>
+
+                <a href="Wishlist.HTML" class="header-icon-link" style="position: relative;">
+                    <i class="fas fa-heart"></i>
+                    <span class="count-badge" id="wishlist-count">0</span>
+                </a>
+                <a href="#" class="header-icon-link" id="header-cart-icon" style="position: relative;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="count-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section>
+        <div class="banner-container">
+            <div class="slides-wrapper">
+                <div class="banner-slide active" style="background-image: url('../IMG/RazerV3proBanner.jpg');"></div>
+                <div class="banner-slide" style="background-image: url('../IMG/Banner2.webp');"></div>
+                <div class="banner-slide" style="background-image: url('../IMG/Banner3.webp');"></div>
+                <div class="banner-slide" style="background-image: url('../IMG/Banner4.webp');"></div>
+            </div>
+            <div class="DauCham">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+            <a class="TroVe" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="TiepTheo" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <div class="NoiDung1">
+            <div class="NoiDung1Trai">
+                <a href="#"><video autoplay loop muted class="Video1" src="../IMG/Clip1TrangChu.mp4"></video></a>
+            </div>
+            <div class="NoiDung1Phai">
+                <p class="LoaiSanPham">Classic Redefined</p>
+                <h1 class="TieuDeSP">ATK Dragonfly A9 Wireless Mouse</h1>
+                <p>Được chế tác với khuôn cổ điển và lớp phủ mịn như băng, Chuột ATK Dragonfly A9 Series mang đến hiệu
+                    suất hàng đầu, định nghĩa lại sự xuất sắc cho trải nghiệm thực sự độc đáo.</p>
+                <a href="#" class="Nut-TimHieu">Tìm hiểu thêm</a>
+            </div>
+        </div>
+
+        <div class="NoiDung2">
+            <div class="line"></div>
+            <h1 class="TieuDe">SẢN PHẨM THỊNH HÀNH</h1>
+            <div class="line"></div>
+        </div>
+
+        <div class="trending-filters">
+            <a href="javascript:void(0)" class="filter-item active" data-target="top-gears-content">Top Gears</a>
+            <span class="separator">|</span>
+            <a href="javascript:void(0)" class="filter-item" data-target="best-sellers-content">Best Sellers</a>
+            <span class="separator">|</span>
+            <a href="javascript:void(0)" class="filter-item" data-target="new-releases-content">New Releases</a>
+        </div>
+
+        <div class="product-section-wrapper tab-content" id="top-gears-content" style="display: block;">
+            <div class="products-grid" id="top-gears-grid"></div>
+        </div>
+
+        <div class="product-section-wrapper tab-content" id="best-sellers-content" style="display: none;">
+            <div class="products-grid" id="best-sellers-grid"></div>
+        </div>
+
+        <div class="product-section-wrapper tab-content" id="new-releases-content" style="display: none;">
+            <div class="products-grid" id="new-releases-grid"></div>
+        </div>
+
+        <div class="service-section">
+            <div class="service-item"><i class="fas fa-plane"></i>
+                <p>Giao hàng toàn quốc</p>
+            </div>
+            <div class="service-item"><i class="fas fa-shield-alt"></i>
+                <p>Bảo hành 12 tháng</p>
+            </div>
+            <div class="service-item"><i class="fab fa-cc-paypal"></i>
+                <p>Secure Payment</p>
+            </div>
+            <div class="service-item"><i class="fas fa-headset"></i>
+                <p>Customer Support</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="flash-giveaway-section">
+        <h2 class="section-title">FLASH GIVEAWAY</h2>
+        <div class="line"></div>
+        <div class="giveaway-content-wrapper">
+            <div class="giveaway-image-container">
+                <img src="../IMG/BanneGiveAway.png" alt="Flash Giveaway Banner">
+            </div>
+            <div class="giveaway-details-card">
+                <h3>BLACK FRIDAY LUCKY DRAW (ROUND 1)</h3>
+                <p>Join our lucky draw and win free gear & rewards! <br> Just a little bit of luck — and this round
+                    could be yours 🍀</p>
+                <button class="try-your-luck-btn">TRY YOUR LUCK</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="search-overlay" id="search-overlay">
+        <button class="search-close-btn" id="search-close-btn"><i class="fas fa-times"></i></button>
+        <div class="search-overlay-content">
+            <form class="search-overlay-form" action="/search">
+                <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..." class="search-overlay-input"
+                    autocomplete="off">
+                <button type="submit" class="search-overlay-submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-overlay"></div>
+    <aside class="mini-cart" id="mini-cart">
+        <div class="cart-header">
+            <h3>Giỏ Hàng</h3>
+            <button class="cart-close-btn" id="cart-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <p class="cart-empty-message">Giỏ hàng của bạn đang trống.</p>
+            <ul id="cart-items-list"></ul>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Tổng cộng:</span><span id="cart-total-price">0 Đ</span></div>
+            <button class="btn-checkout btn-thanh-toan">THANH TOÁN</button>
+        </div>
+    </aside>
+
+    <div class="quick-view-overlay" id="quick-view-overlay">
+        <div class="quick-view-modal" id="quick-view-modal">
+            <button class="quick-view-close-btn" id="quick-view-close-btn"><i class="fas fa-times"></i></button>
+            <div class="quick-view-content" style="display: flex; gap: 30px;">
+                <div class="quick-view-image-gallery" style="flex: 1; text-align: center;">
+                    <img src="" alt="Product" id="qv-main-img"
+                        style="max-width: 100%; height: auto; border-radius: 8px;">
+                </div>
+                <div class="quick-view-details" style="flex: 1;">
+                    <span class="product-badge"
+                        style="background: #e74c3c; color: white; padding: 3px 10px; font-size: 12px; border-radius: 4px; font-weight: bold;">HOT</span>
+                    <h3 class="product-title" id="qv-title" style="margin-top: 15px; font-size: 26px; color: #333;">...
+                    </h3>
+                    <div class="product-price"
+                        style="margin: 15px 0 25px 0; font-size: 24px; color: #d32f2f; font-weight: bold;"><span
+                            id="qv-price">...</span></div>
+
+                    <div class="product-options">
+                        <div class="option-group" style="margin-bottom: 20px;">
+                            <label
+                                style="font-weight: bold; font-size: 14px; display: block; margin-bottom: 8px;">Model:
+                                <span id="qv-selected-model" style="font-weight: normal;"></span></label>
+                            <div class="btn-group" id="qv-model-list"
+                                style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+                        </div>
+                        <div class="option-group" style="margin-bottom: 25px;">
+                            <label
+                                style="font-weight: bold; font-size: 14px; display: block; margin-bottom: 8px;">Color:
+                                <span id="qv-selected-color" style="font-weight: normal;"></span></label>
+                            <div class="color-group" id="qv-color-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <button class="quantity-minus" id="qv-qty-minus"><i class="fas fa-chevron-left"
+                                style="font-size: 12px;"></i></button>
+                        <input type="number" class="quantity-input" id="qv-input-qty" value="1" min="1" readonly>
+                        <button class="quantity-plus" id="qv-qty-plus"><i class="fas fa-chevron-right"
+                                style="font-size: 12px;"></i></button>
+                    </div>
+
+                    <button class="add-to-cart-button" id="qv-add-to-cart"
+                        style="width: 100%; padding: 15px; background: #007bff; color: white; border: none; font-weight: bold; font-size: 16px; cursor: pointer; border-radius: 6px; margin-bottom: 15px; transition: 0.3s;">THÊM
+                        VÀO GIỎ HÀNG</button>
+
+                    <a href="#" class="view-full-details" id="qv-view-details"
+                        style="display: block; text-align: center; color: #555; font-size: 14px; text-decoration: underline;">XEM
+                        CHI TIẾT ĐẦY ĐỦ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="discord-banner-haru">
+        <div class="discord-banner-container-haru">
+            <img src="../IMG/BannerFooter.png" alt="Discord Community Banner HARU" class="discord-image-haru">
+
+            <a href="https://discord.gg/harushop" target="_blank" class="btn-discord-join">
+                THAM GIA DISCORD <i class="fab fa-discord"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer class="main-footer-content">
+        ...
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <hr style="border: 1px solid black; width: 100%;">
+
+    <footer class="main-footer-content">
+        <div class="footer-top-line"></div>
+        <div class="footer-columns-wrapper">
+            <div class="footer-col subscribe-col">
+                <h4 class="col-title">ĐĂNG KÝ NHẬN TIN</h4>
+                <p>Bạn muốn nhận khuyến mãi đặc biệt? Đăng ký ngay.</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Địa chỉ Email" class="email-input">
+                    <button class="submit-btn">ĐĂNG KÝ</button>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/woocs.junz" class="social-icon-link"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/_woocs.junz_/" class="social-icon-link"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="http://www.youtube.com/@_woocs.junz_" class="social-icon-link"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-icon-link"><i
+                            class="far fa-envelope"></i></a>
+                    <a href="https://www.tiktok.com/@_woocs.junz_?is_from_webapp=1&sender_device=pc"
+                        class="social-icon-link"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-link"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col support-col">
+                <h4 class="col-title">SUPPORT</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Chính sách thanh toán</a></li>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Bảo hành</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col other-store-col">
+                <h4 class="col-title">OTHER STORE</h4>
+                <ul>
+                    <li><a href="#">Shoppe</a></li>
+                    <li><a href="#">Lazada</a></li>
+                    <li><a href="#">Tiktok Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <h4 class="col-title">JUICEJUN SHOP</h4>
+                <p class="address-line">76808383-000-08-24-2</p>
+                <p class="address-line">Address: 411/67/51 LÊ ĐỨC THỌ, KHU PHỐ 42, PHƯỜNG GÒ VẤP, THÀNH PHỐ HỒ CHÍ MINH
+                    HONG KONG</p>
+                <p class="contact-line">Email: linn70180@gmail.com</p>
+                <p class="contact-line">Hotline: +84 796 722 41</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom-wrapper">
+            <p class="copyright">JUICEJUN SHOP</p>
+            <div class="payment-methods">
+                <img src="../IMG/CacHinhThucThanhToan.png" alt="Payment Methods" class="payment-image">
+            </div>
+        </div>
+    </footer>
+
+    <script src="../JS/Header.JS"></script>
+    <script src="../JS/Wishlist.JS"></script>
+    <script src="../JS/Cart.JS"></script>
+    <script src="../JS/quickView.JS"></script>
+
+    <script src="../JS/HomeApi.JS"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.filter-item');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    contents.forEach(c => c.style.display = 'none');
+
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                });
+            });
+        });
+
+        // ==========================================
+        // SCRIPT CHẠY BANNER (TỰ ĐỘNG & BẤM NÚT)
+        // ==========================================
+        let slideIndex = 1;
+        let slideTimer;
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("banner-slide");
+            let dots = document.getElementsByClassName("dot");
+
+            if (slides.length === 0) return;
+
+            // Xoay vòng nếu hết ảnh
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+
+            // Ẩn tất cả ảnh và bỏ highlight các dấu chấm
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+
+            // Hiện ảnh hiện tại và highlight dấu chấm tương ứng
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        // Khai báo global (window) để thuộc tính onclick trong HTML gọi được
+        window.plusSlides = function (n) {
+            clearInterval(slideTimer); // Dừng tự động chạy khi người dùng tự bấm
+            showSlides(slideIndex += n);
+            startAutoSlide(); // Bật lại tự động chạy
+        }
+
+        window.currentSlide = function (n) {
+            clearInterval(slideTimer);
+            showSlides(slideIndex = n);
+            startAutoSlide();
+        }
+
+        function startAutoSlide() {
+            slideTimer = setInterval(function () {
+                slideIndex++;
+                showSlides(slideIndex);
+            }, 4000); // 4000ms = 4 giây tự đổi ảnh 1 lần
+        }
+
+        // Khởi chạy lần đầu tiên khi mở web
+        showSlides(slideIndex);
+        startAutoSlide();
+    </script>
+</body>
+
+</html>

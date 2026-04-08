@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ của tôi - Haru</title>
+    <link rel="stylesheet" href="../CSS/style.CSS">
+    <link rel="stylesheet" href="../CSS/HeaderFooter.css">
+    <link rel="stylesheet" href="../CSS/Profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="homepage">
+    <header class="main-header">
+        <div class="header-left">
+            <div class="logo"><a href="Index.HTML">Haru</a></div>
+        </div>
+
+        <nav class="header-nav">
+            <div class="nav-close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul>
+                <li><a href="Index.HTML">TRANG CHỦ</a></li>
+                <li><a href="Mice.HTML">CHUỘT</a></li>
+                <li><a href="Keyboard.HTML">BÀN PHÍM</a></li>
+                <li><a href="Headphone.HTML">TAI NGHE</a></li>
+                <li><a href="Accessories.HTML">ACCESSORIES</a></li>
+
+                <li class="nav-item-dropdown">
+                    <a href="#">HƯỚNG DẪN <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">Tải phần mềm</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="Icon-NguoiDung">
+                <a href="#" class="header-icon-link" id="header-search-icon">
+                    <i class="fas fa-search"></i>
+                </a>
+
+                <div class="user-menu-container" id="user-menu-logged-out">
+                    <a href="Login.HTML" class="header-icon-link">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="user-dropdown-menu">
+                        <a href="Login.HTML" class="dropdown-item">Đăng nhập</a>
+                        <a href="Register.HTML" class="dropdown-item">Đăng ký</a>
+                    </div>
+                </div>
+
+                <div class="user-menu-container" id="user-menu-logged-in" style="display: none;">
+                    <a href="Profile.HTML" class="header-icon-link" id="current-username">
+                        ...
+                    </a>
+                    <div class="user-dropdown-menu">
+                        <a href="Profile.HTML" class="dropdown-item">Tài khoản của tôi</a>
+                        <a href="#" class="dropdown-item" id="logout-button">Đăng xuất</a>
+                    </div>
+                </div>
+
+                <a href="Wishlist.HTML" class="header-icon-link" style="position: relative;">
+                    <i class="fas fa-heart"></i>
+                    <span class="count-badge" id="wishlist-count">0</span>
+                </a>
+                <a href="#" class="header-icon-link" id="header-cart-icon" style="position: relative;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="count-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div style="height: 100px;"></div>
+
+    <div class="profile-container">
+
+        <div class="profile-tabs">
+            <button class="tab-btn active" data-tab="orders-tab">Orders</button>
+            <button class="tab-btn" data-tab="profile-tab">Profile</button>
+        </div>
+
+        <div id="orders-tab" class="tab-content active">
+            <h2 class="section-title">Đơn hàng</h2>
+
+            <div class="info-card empty-orders-card" id="orders-container">
+                <h3>Chưa có đơn hàng nào</h3>
+                <p>Truy cập cửa hàng để đặt hàng.</p>
+                <a href="Mice.HTML" class="go-shopping-btn">Đi đến cửa hàng</a>
+            </div>
+        </div>
+
+        <div id="profile-tab" class="tab-content" style="display: none;">
+            <h2 class="section-title">Hồ sơ</h2>
+
+            <div class="info-card">
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Tên</label>
+                        <div class="info-value">
+                            <span id="profile-name">Đang tải...</span>
+                            <i class="fas fa-pen edit-icon" title="Chỉnh sửa tên"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-group">
+                        <label>Email</label>
+                        <div class="info-value">
+                            <span id="profile-email">Đang tải...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <h3>Địa chỉ</h3>
+                    <button class="add-btn"><i class="fas fa-plus"></i> Thêm</button>
+                </div>
+
+                <div class="address-item">
+                    <div class="address-header">
+                        <span class="address-badge">Địa chỉ mặc định</span>
+                        <i class="fas fa-pen edit-icon" title="Chỉnh sửa địa chỉ"></i>
+                    </div>
+                    <div class="address-details" id="profile-address">
+                        <p id="address-name">Đang tải...</p>
+                        <p id="address-country">Việt Nam</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr style="border: 1px solid black; width: 100%; margin-top: 80px;">
+    <footer class="main-footer-content">
+        <div class="footer-top-line"></div>
+        <div class="footer-columns-wrapper">
+            <div class="footer-col subscribe-col">
+                <h4 class="col-title">ĐĂNG KÝ NHẬN TIN</h4>
+                <p>Bạn muốn nhận khuyến mãi đặc biệt? Đăng ký ngay.</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Địa chỉ Email" class="email-input">
+                    <button class="submit-btn">ĐĂNG KÝ</button>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/woocs.junz" class="social-icon-link"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/_woocs.junz_/" class="social-icon-link"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="http://www.youtube.com/@_woocs.junz_" class="social-icon-link"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-icon-link"><i
+                            class="far fa-envelope"></i></a>
+                    <a href="https://www.tiktok.com/@_woocs.junz_?is_from_webapp=1&sender_device=pc"
+                        class="social-icon-link"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-link"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col support-col">
+                <h4 class="col-title">SUPPORT</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Chính sách thanh toán</a></li>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Bảo hành</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col other-store-col">
+                <h4 class="col-title">OTHER STORE</h4>
+                <ul>
+                    <li><a href="#">Shoppe</a></li>
+                    <li><a href="#">Lazada</a></li>
+                    <li><a href="#">Tiktok Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <h4 class="col-title">JUICEJUN SHOP</h4>
+                <p class="address-line">76808383-000-08-24-2</p>
+                <p class="address-line">Address: 411/67/51 LÊ ĐỨC THỌ, KHU PHỐ 42, PHƯỜNG GÒ VẤP, THÀNH PHỐ HỒ CHÍ MINH
+                    HONG KONG</p>
+                <p class="contact-line">Email: linn70180@gmail.com</p>
+                <p class="contact-line">Hotline: +84 796 722 41</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom-wrapper">
+            <p class="copyright">JUICEJUN SHOP</p>
+            <div class="payment-methods">
+                <img src="../IMG/CacHinhThucThanhToan.png" alt="Payment Methods" class="payment-image">
+            </div>
+        </div>
+    </footer>
+
+    <div class="search-overlay" id="search-overlay">
+        <button class="search-close-btn" id="search-close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="search-overlay-content">
+            <form class="search-overlay-form" action="/search">
+                <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..." class="search-overlay-input"
+                    autocomplete="off">
+                <button type="submit" class="search-overlay-submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-overlay"></div>
+    <aside class="mini-cart" id="mini-cart">
+        <div class="cart-header">
+            <h3>Giỏ Hàng</h3>
+            <button class="cart-close-btn" id="cart-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <p class="cart-empty-message">Giỏ hàng của bạn đang trống.</p>
+            <ul id="cart-items-list"></ul>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Tổng cộng:</span>
+                <span id="cart-total-price">0 Đ</span>
+            </div>
+            <button class="btn-checkout btn-thanh-toan">THANH TOÁN</button>
+        </div>
+    </aside>
+
+    <div id="toast-container"></div>
+
+    <script src="../JS/Header.JS"></script>
+    <script src="../JS/Wishlist.JS"></script>
+    <script src="../JS/Cart.JS"></script>
+    <script src="../JS/Profile.JS"></script>
+</body>
+
+</html>

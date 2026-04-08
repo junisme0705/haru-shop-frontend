@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản trị - Haru Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/Admin.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <h2><i class="fas fa-cogs"></i> HARU ADMIN</h2>
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-target="tab-products">
+                    <i class="fas fa-box-open"></i> Quản lý Sản phẩm
+                </li>
+                <li class="menu-item" data-target="tab-orders">
+                    <i class="fas fa-shopping-bag"></i> Quản lý Đơn hàng
+                </li>
+                <li style="margin-top: 50px;">
+                    <a href="Index.HTML"><i class="fas fa-arrow-left"></i> Về trang mua sắm</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+
+            <div id="tab-products" class="tab-pane active">
+                <div class="admin-container">
+                    <h2 style="margin-top: 0;">Thêm Sản Phẩm Mới</h2>
+                    <form class="add-product-form" id="add-form">
+                        <div class="form-group">
+                            <label>Tên sản phẩm *</label>
+                            <input type="text" id="add-name" required placeholder="VD: Chuột Razer Viper V3 Pro">
+                        </div>
+                        <div class="form-group">
+                            <label>Giá (VNĐ) *</label>
+                            <input type="number" id="add-price" required placeholder="VD: 3200000">
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng kho ban đầu *</label>
+                            <input type="number" id="add-stock" required value="10" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Danh mục *</label>
+                            <select id="add-category" required>
+                                <option value="mice">Chuột (Mice)</option>
+                                <option value="keyboard">Bàn phím (Keyboard)</option>
+                                <option value="headphone">Tai nghe (Headphone)</option>
+                                <option value="accessories">Phụ kiện (Accessories)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width model-section">
+                            <span class="section-title" style="color: #0284c7;">Các phiên bản Model (Tùy chọn)</span>
+                            <div id="model-list">
+                                <div class="model-item">
+                                    <input type="text" class="model-name"
+                                        placeholder="Tên model (VD: Ultimate, Pro Max...)">
+                                    <button type="button" class="btn btn-delete"
+                                        onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-update" id="btn-add-model">
+                                <i class="fas fa-plus"></i> Thêm Model khác
+                            </button>
+                        </div>
+
+                        <div class="form-group full-width color-section">
+                            <span class="section-title" style="color: #e11d48;">Các phiên bản Màu sắc & Hình ảnh
+                                *</span>
+                            <div id="color-list">
+                                <div class="color-item">
+                                    <input type="color" class="color-hex" value="#000000" title="Chọn mã màu">
+                                    <input type="text" class="color-name" placeholder="Tên màu (VD: Black)" required>
+                                    <input type="text" class="color-img" placeholder="Link ảnh (VD: IMG/den.png)"
+                                        required>
+                                    <button type="button" class="btn btn-delete"
+                                        onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-update" id="btn-add-color">
+                                <i class="fas fa-plus"></i> Thêm màu khác
+                            </button>
+                        </div>
+
+                        <div class="form-group full-width"
+                            style="background: #fdfaeb; padding: 24px; border: 1px solid #fef08a; border-radius: 12px; margin-bottom: 10px;">
+                            <span class="section-title" style="color: #d97706;">Thông số kỹ thuật (Tùy chọn)</span>
+                            <div id="spec-list">
+                                <div class="spec-item"
+                                    style="display: flex; gap: 15px; margin-bottom: 15px; align-items: center;">
+                                    <input type="text" class="spec-label" placeholder="Tên thông số (VD: Cảm biến)">
+                                    <input type="text" class="spec-value" placeholder="Giá trị (VD: PAW 3950HS)">
+                                    <button type="button" class="btn btn-delete"
+                                        onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-zero" id="btn-add-spec">
+                                <i class="fas fa-plus"></i> Thêm thông số
+                            </button>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Mô tả chi tiết sản phẩm (Tùy chọn - Có thể dán mã HTML)</label>
+                            <textarea id="add-description" rows="5"
+                                placeholder="Nhập bài viết giới thiệu về sản phẩm vào đây..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-add"><i class="fas fa-save"></i> HOÀN TẤT THÊM SẢN
+                            PHẨM</button>
+                    </form>
+
+                    <h2>Danh Sách Sản Phẩm Trong Kho</h2>
+                    <table id="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Hình</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Danh mục</th>
+                                <th>Tình trạng Kho</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-product-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="tab-orders" class="tab-pane">
+                <h2 style="margin-top: 0; color: #f59e0b;"><i class="fas fa-shopping-bag"></i> Danh sách Đơn đặt hàng
+                </h2>
+                <div style="overflow-x: auto;">
+                    <table id="admin-orders-table" style="width: 100%; min-width: 1000px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">Mã Đơn</th>
+                                <th style="width: 200px;">Thông tin Khách Hàng</th>
+                                <th>Chi tiết đơn hàng (Món đồ)</th>
+                                <th style="width: 150px;">Tổng tiền / Thanh toán</th>
+                                <th style="width: 120px;">Trạng thái</th>
+                                <th style="width: 120px;">Cập nhật</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../JS/Admin.JS"></script>
+</body>
+
+</html>

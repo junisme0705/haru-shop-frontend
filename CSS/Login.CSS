@@ -1,0 +1,344 @@
+/* =======================================
+   CSS MỚI CHO TRANG ĐĂNG NHẬP (Glassmorphism)
+   ======================================= */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    line-height: 1.5;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* 1. Video và Nhạc nền */
+#bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: brightness(0.6) blur(3px);
+}
+
+#bg-music {
+    display: none;
+}
+
+/* 2. Container chính */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 3. Hiệu ứng "3D" Glassmorphism */
+.login-box.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    padding: 32px 40px;
+    width: 100%;
+    max-width: 400px;
+    /* Giữ max-width để không bị kéo dài */
+    text-align: center;
+    /* Căn giữa chung cho box, các text con sẽ override */
+    transition: transform 0.3s ease;
+}
+
+.login-box.glass-effect:hover {
+    transform: scale(1.02);
+}
+
+/* 4. Cập nhật các thành phần bên trong */
+.login-logo {
+    font-size: 56px;
+    font-weight: bold;
+    color: #fff;
+    opacity: 0.5;
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+}
+
+/* TRẢ VỀ CĂN LỀ TRÁI VÀ KHOẢNG CÁCH GỐC CỦA BẠN */
+.login-box h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 16px 0 8px 0;
+    /* Khoảng cách gần giống ảnh gốc */
+    color: #fff;
+    text-align: left;
+    /* Căn lề trái */
+}
+
+/* TRẢ VỀ CĂN LỀ TRÁI VÀ KHOẢNG CÁCH GỐC CỦA BẠN */
+.login-box p {
+    text-align: left;
+    /* Căn lề trái */
+    margin-bottom: 24px;
+    /* Khoảng cách gần giống ảnh gốc */
+}
+
+/* 5. Nút và Form */
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: #4a3aff;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #3a2ad0;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.input-field {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 14px 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.input-field::placeholder {
+    color: transparent;
+}
+
+.input-label {
+    position: absolute;
+    top: 14px;
+    left: 15px;
+    font-size: 15px;
+    color: #ddd;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #fff;
+}
+
+.input-field:focus+.input-label,
+.input-field:not(:placeholder-shown)+.input-label {
+    top: 6px;
+    font-size: 11px;
+    color: #fff;
+}
+
+/* 6. Footer */
+.page-footer {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.page-footer a {
+    font-size: 13px;
+    color: #eee;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.page-footer a:hover {
+    text-decoration: underline;
+}
+
+/* 7. CSS BỔ SUNG CHO BỐ CỤC MỚI */
+.forgot-password-link {
+    display: block;
+    font-size: 13px;
+    text-align: right;
+    margin-top: 8px;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+#login-button {
+    background-color: #4a3aff;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 24px;
+    /* Khoảng cách trước nút Đăng nhập */
+}
+
+#login-button:hover {
+    background-color: #3a2ad0;
+}
+
+/* =======================================
+   CSS BỔ SUNG CHO DÒNG ĐĂNG KÝ
+   ======================================= */
+
+.register-prompt {
+    font-size: 15px;
+    /* Giữ kích thước tương tự như p gốc */
+    color: #eee;
+    /* Màu chữ chính */
+    margin-bottom: 24px;
+    /* Khoảng cách với ô nhập liệu đầu tiên */
+}
+
+.register-prompt .register-link {
+    color: #4a3aff;
+    /* Màu xanh/tím cho link Đăng ký */
+    text-decoration: none;
+    /* Bỏ gạch chân mặc định */
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.register-prompt .register-link:hover {
+    color: #3a2ad0;
+    /* Màu tối hơn khi hover */
+    text-decoration: underline;
+    /* Gạch chân khi hover */
+}
+
+/* THÊM MỚI: Style cho nút khi bị mờ (vô hiệu hóa) */
+#login-button:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    /* Giống style "Tiếp tục" cũ */
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+}
+
+/* =======================================
+   SỬA LỖI NỀN TRẮNG KHI TỰ ĐỘNG ĐIỀN
+   ======================================= */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    /* 1. Buộc chữ phải có màu trắng */
+    -webkit-text-fill-color: #fff !important;
+
+    /*       2. Mẹo để ghi đè nền trắng của trình duyệt:
+         Chúng ta dùng box-shadow để "vẽ"
+         lại lớp nền kính mờ của bạn.
+    */
+    box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset !important;
+
+    /* Đảm bảo transition mượt mà */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* THÊM VÀO CUỐI FILE CSS/login.css */
+
+/* Style chung cho BẤT KỲ nút nào trong form 
+ khi bị vô hiệu hóa (disabled) 
+*/
+.login-form .btn:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+}
+
+/* Style cho link 'Đăng nhập ngay'
+  (Tái sử dụng style từ lần trước) 
+*/
+.register-prompt {
+    font-size: 15px;
+    color: #eee;
+    margin-bottom: 24px;
+}
+
+.register-prompt .register-link {
+    color: #4a3aff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.register-prompt .register-link:hover {
+    color: #3a2ad0;
+    text-decoration: underline;
+}
+
+/* =======================================
+   CSS CHO ICON ĐĂNG NHẬP NHỎ (Facebook/Google)
+   ======================================= */
+
+.social-icons-login {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa */
+    gap: 20px;
+    /* Khoảng cách giữa 2 icon */
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* Làm tròn */
+    background: rgba(255, 255, 255, 0.1);
+    /* Nền trong suốt nhẹ */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng khi di chuột vào nút Google */
+.social-btn.google:hover {
+    background-color: #db4437;
+    /* Màu đỏ Google */
+    border-color: #db4437;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
+}
+
+/* Hiệu ứng khi di chuột vào nút Facebook */
+.social-btn.facebook:hover {
+    background-color: #1877f2;
+    /* Màu xanh Facebook */
+    border-color: #1877f2;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+}

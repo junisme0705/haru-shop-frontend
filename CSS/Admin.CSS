@@ -1,0 +1,383 @@
+/* =======================================
+   BỐ CỤC ADMIN DASHBOARD CHUẨN MỰC
+   ======================================= */
+body {
+    margin: 0;
+    padding: 0;
+    /* Đã xóa padding thừa gây lỗi 2 background */
+    overflow: hidden;
+    /* Chống cuộn toàn trang */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f1f5f9;
+    /* Màu nền tổng thể xám nhạt */
+    color: #1e293b;
+}
+
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- THANH MENU BÊN TRÁI (SIDEBAR) --- */
+.admin-sidebar {
+    width: 260px;
+    background: #0f172a;
+    /* Màu xanh đen cực sang */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    flex-shrink: 0;
+    /* Chống bị ép nhỏ */
+}
+
+.admin-sidebar h2 {
+    text-align: center;
+    padding: 25px 0;
+    margin: 0;
+    border-bottom: 1px solid #1e293b;
+    color: #38bdf8;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar-menu li {
+    padding: 16px 24px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #94a3b8;
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-menu li:hover {
+    background: #1e293b;
+    color: white;
+}
+
+.sidebar-menu li.active {
+    background: #1e293b;
+    border-left-color: #38bdf8;
+    color: white;
+    font-weight: bold;
+}
+
+.sidebar-menu a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* --- KHU VỰC NỘI DUNG BÊN PHẢI --- */
+.admin-main {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    /* Chỉ cuộn khu vực bên phải */
+    background-color: #f1f5f9;
+}
+
+/* KHUNG TRẮNG CHỨA NỘI DUNG (TAB PANE) */
+.tab-pane {
+    display: none;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    /* Đổ bóng cực mềm */
+    animation: fadeIn 0.3s ease-in-out;
+    min-height: calc(100vh - 60px);
+    /* Kéo dài vừa đẹp màn hình */
+    box-sizing: border-box;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ghi đè container cũ để khớp với Tab Pane mới */
+.admin-container {
+    width: 100%;
+}
+
+/* --- TIÊU ĐỀ BÊN TRONG --- */
+h2 {
+    font-size: 22px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 15px;
+    margin-top: 0;
+    /* Sửa lỗi hở khoảng trắng trên đầu */
+    margin-bottom: 30px;
+    color: #0f172a;
+}
+
+/* --- FORM THÊM SẢN PHẨM --- */
+.add-product-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #475569;
+    font-size: 14px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Style cho các ô nhập liệu */
+.add-product-form input[type="text"],
+.add-product-form input[type="number"],
+.add-product-form select,
+.add-product-form textarea {
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+    color: #0f172a;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.add-product-form input:focus,
+.add-product-form select:focus,
+.add-product-form textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* --- KHU VỰC MODEL, COLOR, SPECS --- */
+.model-section,
+.color-section {
+    background: #f8fafc;
+    padding: 24px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.color-section {
+    background: #fff1f2;
+    border-color: #fecdd3;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 15px;
+}
+
+.model-item,
+.color-item,
+.spec-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+/* Trình chọn màu */
+.color-hex {
+    padding: 0;
+    border: none;
+    height: 45px;
+    width: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+}
+
+.color-hex::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-hex::-webkit-color-swatch {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+/* --- NÚT BẤM (BUTTONS) --- */
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-add {
+    background: #10b981;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    grid-column: 1 / -1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+}
+
+.btn-add:hover {
+    background: #059669;
+    box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-update {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-update:hover {
+    background: #2563eb;
+}
+
+.btn-delete {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+.btn-zero {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-zero:hover {
+    background: #d97706;
+}
+
+/* --- BẢNG DỮ LIỆU (TABLE) --- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+th,
+td {
+    padding: 18px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+.img-preview {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+.stock-input {
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.stock-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.status-in {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-out {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}

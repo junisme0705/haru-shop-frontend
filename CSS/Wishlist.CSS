@@ -1,0 +1,115 @@
+/* =======================================
+   CSS RIÊNG CHO TRANG WISHLIST
+   (File: CSS/Wishlist.css)
+   ======================================= */
+
+.wishlist-page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 60vh;
+    /* Để footer không bị đẩy lên khi ít sản phẩm */
+}
+
+.wishlist-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.wishlist-title h1 {
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.wishlist-title .line {
+    width: 60px;
+    height: 3px;
+    background: #000;
+    margin: 0 auto;
+}
+
+/* Lưới sản phẩm */
+#wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    /* Tự động chia cột ngang */
+    gap: 25px;
+}
+
+/* Tinh chỉnh thẻ sản phẩm trong Wishlist */
+#wishlist-grid .collection-product-card {
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+#wishlist-grid .collection-product-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+#wishlist-grid .card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+#wishlist-grid .card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    padding: 15px;
+    transition: transform 0.3s ease;
+}
+
+#wishlist-grid .collection-product-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* Nút Xóa (X) */
+.remove-from-wishlist {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    /* Ẩn mặc định */
+    transition: all 0.2s ease;
+}
+
+#wishlist-grid .collection-product-card:hover .remove-from-wishlist {
+    opacity: 1;
+    /* Hiện khi hover */
+    visibility: visible;
+}
+
+.remove-from-wishlist:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* Ẩn nút tim cũ */
+#wishlist-grid .wishlist-btn {
+    display: none !important;
+}
+
+/* Thông báo trống */
+#empty-wishlist-msg {
+    text-align: center;
+    padding: 50px;
+    display: none;
+}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuột - Haru</title>
+    <link rel="stylesheet" href="../CSS/style.CSS">
+    <link rel="stylesheet" href="../CSS/HeaderFooter.css">
+    <link rel="stylesheet" href="../CSS/Collection.CSS">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40JuSsY6KqF3HhE1XzUqg/fdyl7B2Q+bLg/s1/5/lF2E2F+g/r9P3Lz1F/v0z1Zg/y9E3+e/jP4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../CSS/QuickView.css">
+</head>
+
+<body class="homepage">
+    <header class="main-header">
+        <div class="header-left">
+            <div class="logo"><a href="Index.HTML">Haru</a></div>
+        </div>
+
+        <nav class="header-nav">
+            <div class="nav-close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul>
+                <li><a href="Index.HTML">TRANG CHỦ</a></li>
+                <li><a href="Mice.HTML">CHUỘT</a></li>
+                <li><a href="Keyboard.HTML">BÀN PHÍM</a></li>
+                <li><a href="Headphone.HTML">TAI NGHE</a></li>
+                <li><a href="Accessories.HTML">ACCESSORIES</a></li>
+
+                <li class="nav-item-dropdown">
+                    <a href="#">HƯỚNG DẪN <i class="fas fa-chevron-down dropdown-arrow"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#">Tải phần mềm</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="Icon-NguoiDung">
+                <a href="#" class="header-icon-link" id="header-search-icon">
+                    <i class="fas fa-search"></i>
+                </a>
+
+                <div class="user-menu-container" id="user-menu-logged-out">
+                    <a href="Login.HTML" class="header-icon-link">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="user-dropdown-menu">
+                        <a href="Login.HTML" class="dropdown-item">Đăng nhập</a>
+                        <a href="Register.HTML" class="dropdown-item">Đăng ký</a>
+                    </div>
+                </div>
+
+                <div class="user-menu-container" id="user-menu-logged-in" style="display: none;">
+                    <a href="Profile.HTML" class="header-icon-link" id="current-username">
+                        ...
+                    </a>
+                    <div class="user-dropdown-menu">
+                        <a href="Profile.HTML" class="dropdown-item">Tài khoản của tôi</a>
+                        <a href="#" class="dropdown-item" id="logout-button">Đăng xuất</a>
+                    </div>
+                </div>
+
+                <a href="Wishlist.HTML" class="header-icon-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="count-badge" id="wishlist-count">0</span>
+                </a>
+                <a href="Cart.HTML" class="header-icon-link" id="header-cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="count-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="collection-container">
+        <aside class="collection-sidebar">
+            <div class="filter-group">
+                <h3>TÌNH TRẠNG</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="in-stock" name="in-stock">
+                        <label for="in-stock">Còn Hàng (<span id="count-in-stock">0</span>)</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="out-of-stock" name="out-of-stock">
+                        <label for="out-of-stock">Hết Hàng (<span id="count-out-of-stock">0</span>)</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="filter-group">
+                <h3>GIÁ</h3>
+                <div class="price-slider-wrapper">
+                    <div class="price-values">
+                        <span id="price-min-val">0 Đ</span> - <span id="price-max-val">15.000.000 Đ</span>
+                    </div>
+
+                    <div class="slider-container">
+                        <div class="slider-track"></div>
+                        <input type="range" id="price-min" min="0" max="15000000" value="0" step="100000">
+                        <input type="range" id="price-max" min="0" max="15000000" value="15000000" step="100000">
+                    </div>
+                </div>
+                <button class="btn-apply-price">ÁP DỤNG</button>
+            </div>
+
+            <div class="filter-group">
+                <h3>LOẠI SẢN PHẨM</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="type-headset" name="type-headset">
+                        <label for="type-headset">Wireless Mice (6)</label>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="collection-main">
+            <nav class="breadcrumbs">
+                <a href="index.html">Trang chủ</a> &gt; <span>Chuột</span>
+            </nav>
+            <h1>Chuột</h1>
+
+            <div class="collection-toolbar">
+                <div class="view-options">
+                    <span>XEM DƯỚI DẠNG</span>
+                </div>
+                <div class="sort-by">
+                    <label for="sort-select">SẮP XẾP THEO:</label>
+                    <select id="sort-select">
+                        <option value="default">Thứ tự...</option>
+                        <option value="price-asc">Giá: Tăng dần</option>
+                        <option value="price-desc">Giá: Giảm dần</option>
+                        <option value="name-asc">Tên: A-Z</option>
+                        <option value="name-desc">Tên: Z-A</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid-main" id="product-container">
+            </div>
+
+            <nav class="pagination">
+                <a href="#" class="prev">&laquo;</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#" class="next">&raquo;</a>
+            </nav>
+        </main>
+    </div>
+
+    <div class="search-overlay" id="search-overlay">
+        <button class="search-close-btn" id="search-close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="search-overlay-content">
+            <form class="search-overlay-form" action="/search">
+                <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..." class="search-overlay-input"
+                    autocomplete="off">
+                <button type="submit" class="search-overlay-submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-overlay"></div>
+    <aside class="mini-cart" id="mini-cart">
+        <div class="cart-header">
+            <h3>Giỏ Hàng</h3>
+            <button class="cart-close-btn" id="cart-close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body">
+            <p class="cart-empty-message">Giỏ hàng của bạn đang trống.</p>
+            <ul id="cart-items-list"></ul>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Tổng cộng:</span>
+                <span id="cart-total-price">0 Đ</span>
+            </div>
+            <button class="btn-checkout btn-thanh-toan">THANH TOÁN</button>
+        </div>
+    </aside>
+
+    <div id="toast-container"></div>
+
+    <hr style="border: 1px solid black; width: 100%;">
+    <footer class="main-footer-content">
+        <div class="footer-top-line"></div>
+        <div class="footer-columns-wrapper">
+            <div class="footer-col subscribe-col">
+                <h4 class="col-title">ĐĂNG KÝ NHẬN TIN</h4>
+                <p>Bạn muốn nhận khuyến mãi đặc biệt? Đăng ký ngay.</p>
+                <div class="subscribe-form">
+                    <input type="email" placeholder="Địa chỉ Email" class="email-input">
+                    <button class="submit-btn">ĐĂNG KÝ</button>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/woocs.junz" class="social-icon-link"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/_woocs.junz_/" class="social-icon-link"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="http://www.youtube.com/@_woocs.junz_" class="social-icon-link"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="social-icon-link"><i
+                            class="far fa-envelope"></i></a>
+                    <a href="https://www.tiktok.com/@_woocs.junz_?is_from_webapp=1&sender_device=pc"
+                        class="social-icon-link"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon-link"><i class="fab fa-weixin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col support-col">
+                <h4 class="col-title">SUPPORT</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Chính sách thanh toán</a></li>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Bảo hành</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản và điều kiện</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col other-store-col">
+                <h4 class="col-title">OTHER STORE</h4>
+                <ul>
+                    <li><a href="#">Shoppe</a></li>
+                    <li><a href="#">Lazada</a></li>
+                    <li><a href="#">Tiktok Shop</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col contact-col">
+                <h4 class="col-title">JUICEJUN SHOP</h4>
+                <p class="address-line">76808383-000-08-24-2</p>
+                <p class="address-line">Address: 411/67/51 LÊ ĐỨC THỌ, KHU PHỐ 42, PHƯỜNG GÒ VẤP, THÀNH PHỐ HỒ CHÍ MINH
+                    HONG KONG</p>
+                <p class="contact-line">Email: linn70180@gmail.com</p>
+                <p class="contact-line">Hotline: +84 796 722 41</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom-wrapper">
+            <p class="copyright">JUICEJUN SHOP</p>
+            <div class="payment-methods">
+                <img src="../IMG/CacHinhThucThanhToan.png" alt="Payment Methods" class="payment-image">
+            </div>
+        </div>
+    </footer>
+
+    <div class="quick-view-overlay" id="quick-view-overlay">
+        <div class="quick-view-modal" id="quick-view-modal">
+            <button class="quick-view-close-btn" id="quick-view-close-btn"><i class="fas fa-times"></i></button>
+            <div class="quick-view-content" style="display: flex; gap: 30px;">
+                <div class="quick-view-image-gallery" style="flex: 1; text-align: center;">
+                    <img src="" alt="Product" id="qv-main-img"
+                        style="max-width: 100%; height: auto; border-radius: 8px;">
+                </div>
+                <div class="quick-view-details" style="flex: 1;">
+                    <span class="product-badge"
+                        style="background: #e74c3c; color: white; padding: 3px 10px; font-size: 12px; border-radius: 4px; font-weight: bold;">HOT</span>
+                    <h3 class="product-title" id="qv-title" style="margin-top: 15px; font-size: 26px; color: #333;">...
+                    </h3>
+                    <div class="product-price"
+                        style="margin: 15px 0 25px 0; font-size: 24px; color: #d32f2f; font-weight: bold;"><span
+                            id="qv-price">...</span></div>
+
+                    <div class="product-options">
+                        <div class="option-group" style="margin-bottom: 20px;">
+                            <label
+                                style="font-weight: bold; font-size: 14px; display: block; margin-bottom: 8px;">Model:
+                                <span id="qv-selected-model" style="font-weight: normal;"></span></label>
+                            <div class="btn-group" id="qv-model-list"
+                                style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+                        </div>
+                        <div class="option-group" style="margin-bottom: 25px;">
+                            <label
+                                style="font-weight: bold; font-size: 14px; display: block; margin-bottom: 8px;">Color:
+                                <span id="qv-selected-color" style="font-weight: normal;"></span></label>
+                            <div class="color-group" id="qv-color-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <button class="quantity-minus" id="qv-qty-minus"><i class="fas fa-chevron-left"
+                                style="font-size: 12px;"></i></button>
+                        <input type="number" class="quantity-input" id="qv-input-qty" value="1" min="1" readonly>
+                        <button class="quantity-plus" id="qv-qty-plus"><i class="fas fa-chevron-right"
+                                style="font-size: 12px;"></i></button>
+                    </div>
+
+                    <button class="add-to-cart-button" id="qv-add-to-cart"
+                        style="width: 100%; padding: 15px; background: #007bff; color: white; border: none; font-weight: bold; font-size: 16px; cursor: pointer; border-radius: 6px; margin-bottom: 15px; transition: 0.3s;">THÊM
+                        VÀO GIỎ HÀNG</button>
+
+                    <a href="#" class="view-full-details" id="qv-view-details"
+                        style="display: block; text-align: center; color: #555; font-size: 14px; text-decoration: underline;">XEM
+                        CHI TIẾT ĐẦY ĐỦ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/Header.JS"></script>
+    <script src="../JS/Collection.JS"></script>
+    <script src="../JS/Wishlist.JS"></script>
+    <script src="../JS/Cart.JS"></script>
+    <script src="../JS/quickView.JS"></script>
+</body>
+
+</html>

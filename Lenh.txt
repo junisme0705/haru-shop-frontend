@@ -1,0 +1,11 @@
+Chạy sever nodejs
+cd sever
+nodemon server.js
+
+
+Lệnh SQL
+
+
+-- Tạo sẵn 2 mã giảm giá cho bảng coupons voucher 
+INSERT INTO coupons (code, discount_percent, is_freeship) VALUES ('HARU10', 10, FALSE);
+INSERT INTO coupons (code, discount_percent, is_freeship) VALUES ('FREESHIP', 0, TRUE);

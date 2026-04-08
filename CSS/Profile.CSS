@@ -1,0 +1,173 @@
+/* Bố cục chính của trang Profile */
+.profile-container {
+    max-width: 900px;
+    margin: 0 auto 100px auto;
+    padding: 0 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Khu vực Tab Navigation (Orders / Profile) --- */
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+    padding-bottom: 5px;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.tab-btn:hover {
+    color: #000;
+}
+
+.tab-btn.active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+}
+
+/* --- Tiêu đề các mục --- */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* --- Thẻ thông tin (Xám nhạt, bo góc giống ATK) --- */
+.info-card {
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    padding: 35px 40px;
+    margin-bottom: 25px;
+}
+
+/* Tab Đơn hàng trống */
+.empty-orders-card {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-orders-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.empty-orders-card p {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.go-shopping-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.go-shopping-btn:hover {
+    background: #333;
+}
+
+/* --- Nội dung Tab Hồ sơ (Profile) --- */
+.info-row {
+    margin-bottom: 25px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-group label {
+    display: block;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.info-value {
+    font-size: 16px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-icon {
+    font-size: 12px;
+    color: #007bff;
+    /* Màu xanh nước biển giống icon bút chì */
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.edit-icon:hover {
+    color: #0056b3;
+}
+
+/* --- Thẻ Địa chỉ --- */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.card-header h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.add-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-btn:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.address-item {
+    border-top: 1px solid #eaeaea;
+    padding-top: 20px;
+}
+
+.address-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.address-badge {
+    font-size: 13px;
+    color: #666;
+}
+
+.address-details p {
+    margin: 0 0 5px 0;
+    font-size: 15px;
+    color: #000;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - Haru</title>
+    <link rel="stylesheet" href="../CSS/Checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="checkout-container">
+        <div class="checkout-left">
+            <div class="left-content">
+                <h1 class="checkout-logo"><a href="Index.HTML">HARU</a></h1>
+
+                <div class="express-checkout">
+                    <p class="text-center">Thanh toán nhanh</p>
+                    <div class="express-buttons">
+                        <button type="button" class="btn-momo"><i class="fas fa-wallet"></i> MoMo</button>
+                        <button type="button" class="btn-bank"><i class="fas fa-university"></i> Chuyển khoản</button>
+                    </div>
+                    <div class="divider"><span>HOẶC</span></div>
+                </div>
+
+                <form id="checkout-form" novalidate>
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2>Liên hệ</h2>
+                            <a href="Login.HTML" class="login-link">Đăng nhập</a>
+                        </div>
+                        <div class="input-group" id="group-email">
+                            <input type="email" id="email" placeholder="Email">
+                            <span class="error-message">Nhập email</span>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" checked>
+                            <label for="newsletter">Gửi cho tôi tin tức và ưu đãi qua email</label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Giao hàng</h2>
+                        <div class="input-row">
+                            <div class="input-group">
+                                <input type="text" placeholder="Tên (không bắt buộc)">
+                            </div>
+                            <div class="input-group" id="group-lastname">
+                                <input type="text" id="lastname" placeholder="Họ và Tên *">
+                                <span class="error-message">Nhập họ và tên</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group" id="group-province">
+                            <select id="province" required>
+                                <option value="">Chọn Tỉnh / Thành phố *</option>
+                            </select>
+                            <span class="error-message">Vui lòng chọn Tỉnh/Thành</span>
+                        </div>
+
+                        <div class="input-row">
+                            <div class="input-group" id="group-district">
+                                <select id="district" required disabled>
+                                    <option value="">Chọn Quận / Huyện *</option>
+                                </select>
+                                <span class="error-message">Vui lòng chọn Quận/Huyện</span>
+                            </div>
+                            <div class="input-group" id="group-ward">
+                                <select id="ward" required disabled>
+                                    <option value="">Chọn Phường / Xã *</option>
+                                </select>
+                                <span class="error-message">Vui lòng chọn Phường/Xã</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group" id="group-address">
+                            <input type="text" id="address" placeholder="Số nhà, Tên đường cụ thể *">
+                            <span class="error-message">Nhập địa chỉ cụ thể</span>
+                        </div>
+
+                        <div class="input-group" id="group-phone">
+                            <input type="tel" id="phone" placeholder="Số điện thoại *">
+                            <span class="error-message">Nhập số điện thoại</span>
+                        </div>
+
+                        <div class="checkbox-group mt-15">
+                            <input type="checkbox" id="save-info">
+                            <label for="save-info">Lưu lại thông tin này cho lần sau</label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Phương thức vận chuyển</h2>
+                        <div class="shipping-methods">
+                            <label class="radio-box">
+                                <div class="radio-left">
+                                    <input type="radio" name="shipping" checked value="30000">
+                                    <span>Giao hàng tiêu chuẩn <br><small>3-5 ngày - (Đã bao gồm thuế)</small></span>
+                                </div>
+                                <span class="price">30.000 Đ</span>
+                            </label>
+                            <label class="radio-box">
+                                <div class="radio-left">
+                                    <input type="radio" name="shipping" value="100000">
+                                    <span>Giao hàng hỏa tốc <br><small>1-2 ngày - (Nội thành)</small></span>
+                                </div>
+                                <span class="price">100.000 Đ</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Phương thức thanh toán</h2>
+                        <div class="shipping-methods">
+                            <label class="radio-box">
+                                <div class="radio-left">
+                                    <input type="radio" name="payment" value="cod" checked>
+                                    <span>Thanh toán khi nhận hàng (COD) <br><small>Nhận hàng rồi mới trả
+                                            tiền</small></span>
+                                </div>
+                            </label>
+                            <label class="radio-box">
+                                <div class="radio-left">
+                                    <input type="radio" name="payment" value="momo">
+                                    <span>Ví điện tử MoMo <br><small>Quét mã QR an toàn và nhanh chóng</small></span>
+                                </div>
+                            </label>
+                            <label class="radio-box">
+                                <div class="radio-left">
+                                    <input type="radio" name="payment" value="bank">
+                                    <span>Chuyển khoản ngân hàng <br><small>Chuyển khoản trực tiếp 24/7</small></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-pay-now">Thanh toán ngay</button>
+                </form>
+
+                <div class="checkout-footer">
+                    <a href="#">Chính sách hoàn tiền</a>
+                    <a href="#">Vận chuyển</a>
+                    <a href="#">Chính sách quyền riêng tư</a>
+                    <a href="#">Điều khoản dịch vụ</a>
+                    <a href="#">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+
+        <aside class="checkout-right">
+            <div class="right-content">
+                <div class="checkout-cart-items">
+                </div>
+
+                <div class="discount-section">
+                    <input type="text" placeholder="Mã giảm giá hoặc thẻ quà tặng">
+                    <button class="btn-apply-discount">Áp dụng</button>
+                </div>
+
+                <div class="cost-summary">
+                    <div class="cost-row">
+                        <span>Tổng phụ</span>
+                        <span>0 Đ</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Vận chuyển <i class="far fa-question-circle"></i></span>
+                        <span>30.000 Đ</span>
+                    </div>
+                    <div class="cost-row total-row">
+                        <span>Tổng</span>
+                        <span class="total-price"><small>VNĐ</small> 0 Đ</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="payment-modal-overlay" id="payment-modal">
+        <div class="payment-modal-content">
+            <div class="payment-modal-header">
+                <h3 id="payment-modal-title">Thanh toán <span style="color:#d82d8b">MoMo</span></h3>
+                <button class="close-modal-btn" id="close-payment-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="payment-modal-body">
+                <p>Quét mã QR dưới đây bằng ứng dụng <strong id="payment-app-name">MoMo</strong> để thanh toán.</p>
+
+                <div class="qr-code-box">
+                    <img src="../IMG/QRcuaHaru.JPG" alt="Mã QR" id="qr-image">
+                </div>
+
+                <div class="payment-info">
+                    <p style="margin-bottom: 5px;">Số tiền cần thanh toán:</p>
+                    <h2 id="payment-amount-display">0 Đ</h2>
+                    <p style="font-size: 14px; color: #6b7280; margin-top: 10px;">
+                        Nội dung CK: <strong id="payment-memo" style="color: #0f172a;">HARU_8386</strong>
+                    </p>
+                </div>
+
+                <button class="btn-confirm-paid" id="btn-confirm-paid">
+                    <i class="fas fa-check-circle"></i> TÔI ĐÃ CHUYỂN KHOẢN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/Checkout.JS"></script>
+</body>
+
+</html>
