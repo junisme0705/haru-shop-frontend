@@ -1,0 +1,584 @@
+/* =======================================
+   HEADER CHÍNH (DESKTOP)
+   ======================================= */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: black;
+    padding: 10px 40px;
+    height: 60px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 2.2px;
+    color: black;
+}
+
+.logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.header-nav a {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.header-nav a:hover {
+    color: #949393;
+}
+
+.header-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+}
+
+.header-nav a:hover::after {
+    width: 100%;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.Icon-NguoiDung {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.Icon-NguoiDung a {
+    color: black;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.Icon-NguoiDung a:hover {
+    color: #949393;
+}
+
+/* Cục báo số lượng màu hồng trên Icon */
+.count-badge {
+    background: #ff66a3;
+    color: white;
+    font-size: 11px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    font-weight: bold;
+}
+
+/* =======================================
+   HEADER STICKY (CUỘN XUỐNG DÍNH LẠI)
+   ======================================= */
+.main-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 40px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.main-header.sticky+section,
+.main-header.sticky+.collection-container,
+.main-header.sticky+.pdp-container {
+    padding-top: 80px;
+}
+
+/* =======================================
+   DROPDOWN: HƯỚNG DẪN MUA HÀNG
+   ======================================= */
+@media (min-width: 769px) {
+    .nav-item-dropdown {
+        position: relative;
+    }
+
+    .dropdown-arrow {
+        font-size: 0.7em;
+        margin-left: 4px;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-item-dropdown:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 10px 0;
+        min-width: 180px;
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    /* FIX: Cây cầu tàng hình cho menu Hướng Dẫn */
+    .dropdown-menu::after {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        width: 100%;
+        height: 25px;
+        /* Độ dày của cầu bao trọn khoảng trống */
+        background-color: transparent;
+        /* Tàng hình hoàn toàn */
+    }
+
+    .nav-item-dropdown:hover .dropdown-menu {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+        width: 100%;
+    }
+
+    .dropdown-menu li a {
+        display: block;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: normal;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    .dropdown-menu li a:hover {
+        background-color: #f5f5f5;
+        color: #000;
+    }
+
+    .dropdown-menu li a::after {
+        display: none !important;
+    }
+
+    .nav-item-dropdown>a::after {
+        bottom: -5px;
+    }
+}
+
+/* =======================================
+   DROPDOWN: TÀI KHOẢN NGƯỜI DÙNG
+   ======================================= */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-menu {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, top 0.3s ease;
+}
+
+.user-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+/* FIX: Cây cầu tàng hình cho menu Tài khoản */
+.user-dropdown-menu::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    /* Lấp đầy khoảng trống từ icon xuống menu */
+    background-color: transparent;
+}
+
+.user-dropdown-menu .dropdown-item {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.user-dropdown-menu .dropdown-item:hover {
+    background-color: #444;
+}
+
+.user-menu-container:hover .user-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    top: 40px;
+}
+
+.user-dropdown-menu .dropdown-item::after {
+    display: none !important;
+}
+
+/* =======================================
+   GIAO DIỆN HEADER CHO MOBILE
+   ======================================= */
+.mobile-menu-toggle {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px;
+    color: #000;
+}
+
+.nav-close-btn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 10px 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        padding: 60px 30px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1002;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .header-nav.nav-active {
+        transform: translateX(0);
+    }
+
+    .header-nav ul {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .header-nav a {
+        font-size: 18px;
+    }
+
+    .header-nav a::after {
+        display: none;
+    }
+
+    .logo {
+        font-size: 22px;
+        letter-spacing: 1.5px;
+    }
+
+    .mobile-menu-toggle,
+    .header-nav .nav-close-btn {
+        display: block;
+    }
+
+    .Icon-NguoiDung a {
+        font-size: 20px;
+    }
+
+    /* Dropdown Mobile */
+    .dropdown-arrow {
+        font-size: 0.8em;
+        margin-left: 8px;
+    }
+
+    .dropdown-menu {
+        display: none;
+        list-style: none;
+        padding-left: 20px;
+        margin-top: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .dropdown-menu li a {
+        font-size: 16px;
+        font-weight: normal;
+        color: #444;
+    }
+}
+
+/* =======================================
+   FOOTER CHUẨN HARU SHOP
+   ======================================= */
+hr {
+    border: 1px solid black !important;
+    width: 100%;
+}
+
+.main-footer-content {
+    padding: 0 40px;
+    color: #333;
+    font-size: 14px;
+}
+
+.footer-columns-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-col {
+    flex: 1 1 200px;
+    padding-right: 20px;
+    min-width: 180px;
+}
+
+.footer-col.contact-col {
+    flex: 1 1 300px;
+}
+
+.col-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.footer-col p {
+    margin: 5px 0;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #333;
+    margin-right: 0;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col li {
+    margin-bottom: 8px;
+}
+
+.footer-col a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: black;
+}
+
+.subscribe-form {
+    display: flex;
+    margin: 15px 0 20px;
+}
+
+.email-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    color: #000;
+}
+
+.submit-btn {
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #555;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    color: black;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.social-icon-link:hover {
+    background-color: #eee;
+}
+
+.footer-bottom-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 13px;
+    margin: 0;
+    font-weight: bold;
+    color: #555;
+}
+
+.payment-methods img {
+    max-height: 25px;
+    width: auto;
+    display: block;
+    filter: none;
+    opacity: 1;
+}
+
+@media (max-width: 1200px) {
+    .footer-columns-wrapper {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-footer-content {
+        padding: 0 15px;
+    }
+
+    .footer-columns-wrapper {
+        flex-direction: column;
+        padding-bottom: 20px;
+        gap: 0;
+    }
+
+    .footer-col {
+        min-width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .footer-col.subscribe-col {
+        order: 5;
+    }
+
+    .footer-col.contact-col {
+        order: 4;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+
+    .footer-col.other-store-col {
+        order: 3;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+
+    .footer-col.support-col {
+        order: 2;
+    }
+
+    .footer-col.explore-col {
+        order: 1;
+    }
+
+    .footer-bottom-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
