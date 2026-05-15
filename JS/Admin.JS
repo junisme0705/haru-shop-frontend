@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Đang tải dữ liệu...</td></tr>';
 
         try {
-            const response = await fetch('http://localhost:3000/api/products');
+            const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/products');
             const products = await response.json();
 
             tbody.innerHTML = products.map(p => {
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const res = await fetch('http://localhost:3000/api/admin/products', {
+            const res = await fetch('https://haru-shop-backend-production.up.railway.app/api/admin/products', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newProduct)
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.updateStock = async (id) => {
         const newStock = document.getElementById(`stock-${id}`).value;
         try {
-            const res = await fetch(`http://localhost:3000/api/admin/products/${id}/stock`, {
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/admin/products/${id}/stock`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ stock: newStock })
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setOutOfStock = async (id) => {
         if (confirm("Xác nhận đổi sản phẩm này thành Hết hàng?")) {
             try {
-                const res = await fetch(`http://localhost:3000/api/admin/products/${id}/stock`, {
+                const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/admin/products/${id}/stock`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ stock: 0 })
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deleteProduct = async (id) => {
         if (confirm("CẢNH BÁO: Bạn có chắc chắn muốn xóa hẳn sản phẩm này khỏi Shop không?")) {
             try {
-                const res = await fetch(`http://localhost:3000/api/admin/products/${id}`, {
+                const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/admin/products/${id}`, {
                     method: 'DELETE'
                 });
                 if (res.ok) {
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Đang tải đơn hàng...</td></tr>';
 
         try {
-            const response = await fetch('http://localhost:3000/api/admin/orders');
+            const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/admin/orders');
             const orders = await response.json();
 
             if (orders.length === 0) {
@@ -267,8 +267,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (item.selected_color && item.selected_color !== 'Mặc định') variant.push(item.selected_color);
                     let variantStr = variant.length > 0 ? `<span style="color:#6366f1;">(${variant.join(' - ')})</span>` : '';
 
-                    let imgSrc = item.product_image;
+                    // ==========================================
+                    // ĐOẠN SỬA LỖI: LẤY ẢNH THEO ĐÚNG MÀU SẮC
+                    // ==========================================
+                    let finalImage = item.product_image; // Ảnh mặc định
+
+                    // Nếu có data màu và khách có chọn màu
+                    if (item.product_colors && item.selected_color && item.selected_color !== 'Mặc định') {
+                        try {
+                            // Ép kiểu mảng màu sắc
+                            const colorsArray = typeof item.product_colors === 'string' ? JSON.parse(item.product_colors) : item.product_colors;
+
+                            // Tìm xem màu khách chọn là màu nào để lôi ảnh ra
+                            if (Array.isArray(colorsArray) && colorsArray.length > 0) {
+                                const variantColorData = colorsArray.find(c => c.name === item.selected_color);
+                                if (variantColorData && variantColorData.image) {
+                                    finalImage = variantColorData.image; // Ghi đè bằng ảnh của màu Purple (hoặc màu tương ứng)
+                                }
+                            }
+                        } catch (e) {
+                            console.error("Lỗi đọc ảnh màu sắc bên admin:", e);
+                        }
+                    }
+
+                    // Chốt lại đường dẫn ảnh cuối cùng
+                    let imgSrc = finalImage;
                     imgSrc = imgSrc && imgSrc.startsWith('../') ? imgSrc : '../' + (imgSrc || 'IMG/default.png');
+                    // ==========================================
 
                     return `
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px;">
@@ -331,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     window.updateOrderStatus = async (id, newStatus) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/admin/orders/${id}/status`, {
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/admin/orders/${id}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus })

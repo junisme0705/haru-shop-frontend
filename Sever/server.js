@@ -1,6 +1,18 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+require('dotenv').config(); //khóa bảo mật
+
+
+// CẤU HÌNH BƯU TÁ GỬI MAIL OTP
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER, // Lấy từ két sắt .env
+        pass: process.env.EMAIL_PASS  // Lấy từ két sắt .env
+    }
+});
 
 const app = express();
 
@@ -8,18 +20,21 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'haru_shop',
-    password: '123456',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    ssl: {
+        rejectUnauthorized: false // Bắt buộc phải có dòng này để chạy trên Railway
+    }
 });
 
 pool.connect((err) => {
     if (err) {
         console.error('❌ Lỗi kết nối Database:', err.stack);
     } else {
-        console.log('✅ Server Haru chạy tại http://localhost:3000 (Sử dụng PostgreSQL)');
+        console.log('✅ Đã kết nối Database Railway thành công!');
     }
 });
 
@@ -175,6 +190,66 @@ app.get('/api/products/:id', async (req, res) => {
         res.json(result.rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
+    }
+});
+
+// ==========================================
+// API LẤY DANH SÁCH ĐÁNH GIÁ CỦA SẢN PHẨM
+// ==========================================
+app.get('/api/products/:id/reviews', async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Lấy bình luận kèm tên người dùng
+        const query = `
+            SELECT r.id, r.rating, r.comment, r.created_at, u.username 
+            FROM reviews r
+            JOIN users u ON r.user_id = u.id
+            WHERE r.product_id = $1
+            ORDER BY r.created_at DESC
+        `;
+        const result = await pool.query(query, [id]);
+
+        const reviews = result.rows;
+        const totalReviews = reviews.length;
+
+        // Tính điểm trung bình (Ví dụ: 4.5)
+        const averageRating = totalReviews > 0
+            ? (reviews.reduce((sum, rev) => sum + rev.rating, 0) / totalReviews).toFixed(1)
+            : 0;
+
+        res.json({ reviews, totalReviews, averageRating });
+    } catch (err) {
+        console.error("Lỗi tải đánh giá:", err);
+        res.status(500).json({ error: 'Lỗi Server' });
+    }
+});
+
+// ==========================================
+// API THÊM ĐÁNH GIÁ MỚI
+// ==========================================
+app.post('/api/products/:id/reviews', async (req, res) => {
+    const { id } = req.params; // ID sản phẩm
+    const { email, rating, comment } = req.body;
+
+    try {
+        // 1. Kiểm tra xem user có tồn tại không
+        const userRes = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
+        if (userRes.rows.length === 0) return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập để đánh giá!' });
+        const userId = userRes.rows[0].id;
+
+        // 2. (Tùy chọn) Chặn spam: Mỗi user chỉ đánh giá 1 lần cho 1 sản phẩm
+        const checkRes = await pool.query('SELECT id FROM reviews WHERE product_id = $1 AND user_id = $2', [id, userId]);
+        if (checkRes.rows.length > 0) return res.status(400).json({ success: false, message: 'Bạn đã đánh giá sản phẩm này rồi!' });
+
+        // 3. Lưu vào Database
+        await pool.query(
+            'INSERT INTO reviews (product_id, user_id, rating, comment) VALUES ($1, $2, $3, $4)',
+            [id, userId, rating, comment]
+        );
+        res.json({ success: true, message: 'Đã gửi đánh giá thành công!' });
+    } catch (err) {
+        console.error("Lỗi lưu đánh giá:", err);
+        res.status(500).json({ success: false, message: 'Lỗi Server' });
     }
 });
 
@@ -403,7 +478,8 @@ app.post('/api/login', async (req, res) => {
                 success: true,
                 user: {
                     username: userRes.rows[0].username,
-                    email: userRes.rows[0].email
+                    email: userRes.rows[0].email,
+                    role: userRes.rows[0].role // <--- SẾP QUÊN DÒNG NÀY NÈ !!!
                 }
             });
         } else {
@@ -493,6 +569,7 @@ app.delete('/api/admin/products/:id', async (req, res) => {
 // ==========================================
 
 // 1. Lấy danh sách tất cả đơn hàng (Kèm chi tiết từng món đồ bên trong)
+// 1. Lấy danh sách tất cả đơn hàng (Kèm chi tiết từng món đồ bên trong)
 app.get('/api/admin/orders', async (req, res) => {
     try {
         // Lệnh SQL này cực kỳ xịn: Nó lôi Đơn hàng ra, sau đó gom tất cả đồ trong đơn đó thành 1 mảng JSON (json_agg)
@@ -506,7 +583,8 @@ app.get('/api/admin/orders', async (req, res) => {
                            'selected_model', oi.selected_model,
                            'selected_color', oi.selected_color,
                            'product_name', p.name,
-                           'product_image', p.image
+                           'product_image', p.image,
+                           'product_colors', p.colors
                        )
                    ) FILTER (WHERE oi.id IS NOT NULL), '[]') as items
             FROM orders o
@@ -519,6 +597,47 @@ app.get('/api/admin/orders', async (req, res) => {
         res.json(result.rows);
     } catch (err) {
         console.error("❌ LỖI TẢI DANH SÁCH ĐƠN HÀNG:", err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// ==========================================
+// Lấy lịch sử đơn hàng CỦA RIÊNG MỘT USER (Trang Profile)
+// ==========================================
+app.get('/api/user/orders/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        // 1. Tìm ID của user dựa vào email
+        const userRes = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
+        if (userRes.rows.length === 0) return res.json([]);
+        const userId = userRes.rows[0].id;
+
+        // 2. Lấy đơn hàng của user này (kèm mảng colors y như Admin)
+        const query = `
+            SELECT o.*, 
+                   COALESCE(json_agg(
+                       json_build_object(
+                           'product_id', oi.product_id,
+                           'quantity', oi.quantity,
+                           'price', oi.price,
+                           'selected_model', oi.selected_model,
+                           'selected_color', oi.selected_color,
+                           'product_name', p.name,
+                           'product_image', p.image,
+                           'product_colors', p.colors
+                       )
+                   ) FILTER (WHERE oi.id IS NOT NULL), '[]') as items
+            FROM orders o
+            LEFT JOIN order_items oi ON o.id = oi.order_id
+            LEFT JOIN products p ON oi.product_id = p.id
+            WHERE o.user_id = $1
+            GROUP BY o.id
+            ORDER BY o.created_at DESC
+        `;
+        const result = await pool.query(query, [userId]);
+        res.json(result.rows);
+    } catch (err) {
+        console.error("❌ LỖI TẢI LỊCH SỬ ĐƠN HÀNG USER:", err.message);
         res.status(500).json({ error: err.message });
     }
 });
@@ -536,6 +655,72 @@ app.put('/api/admin/orders/:id/status', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('--- SERVER ĐANG CHẠY MƯỢT MÀ ---');
+// ==========================================
+// API GỬI MÃ OTP QUÊN MẬT KHẨU
+// ==========================================
+app.post('/api/forgot-password', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const userRes = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (userRes.rows.length === 0) return res.status(404).json({ success: false, message: 'Email này chưa được đăng ký!' });
+
+        // Tạo mã OTP ngẫu nhiên 6 số
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const expiry = new Date(Date.now() + 15 * 60000); // Hết hạn sau 15 phút
+
+        // Lưu OTP vào Database
+        await pool.query('UPDATE users SET otp = $1, otp_expiry = $2 WHERE email = $3', [otp, expiry, email]);
+
+        // Nội dung Email
+        const mailOptions = {
+            from: '"Haru Shop" <linn70180@gmail.com>',
+            to: email,
+            subject: 'Khôi phục mật khẩu - Haru Shop',
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+                    <h2 style="color: #333;">Xin chào!</h2>
+                    <p>Bạn vừa yêu cầu khôi phục mật khẩu tại Haru Shop.</p>
+                    <p>Mã OTP của bạn là: <strong style="font-size: 24px; color: #6366f1; letter-spacing: 2px;">${otp}</strong></p>
+                    <p style="color: #666; font-size: 13px;">Mã này sẽ hết hạn trong 15 phút. Vui lòng không chia sẻ cho bất kỳ ai.</p>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.json({ success: true, message: 'Đã gửi mã OTP đến email!' });
+    } catch (err) {
+        console.error("LỖI GỬI EMAIL:", err);
+        res.status(500).json({ success: false, message: 'Lỗi Server không thể gửi mail!' });
+    }
+});
+
+// ==========================================
+// API XÁC NHẬN OTP VÀ ĐỔI MẬT KHẨU
+// ==========================================
+app.post('/api/reset-password', async (req, res) => {
+    const { email, otp, newPassword } = req.body;
+    try {
+        const userRes = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (userRes.rows.length === 0) return res.status(404).json({ success: false, message: 'User không tồn tại!' });
+
+        const user = userRes.rows[0];
+        const now = new Date();
+
+        // Kiểm tra OTP
+        if (user.otp !== otp) return res.status(400).json({ success: false, message: 'Mã OTP không chính xác!' });
+        if (now > user.otp_expiry) return res.status(400).json({ success: false, message: 'Mã OTP đã hết hạn!' });
+
+        // Đổi pass & Xóa OTP
+        await pool.query('UPDATE users SET password = $1, otp = NULL, otp_expiry = NULL WHERE email = $2', [newPassword, email]);
+
+        res.json({ success: true, message: 'Đổi mật khẩu thành công!' });
+    } catch (err) {
+        console.error("LỖI ĐỔI MẬT KHẨU:", err);
+        res.status(500).json({ success: false, message: 'Lỗi Server!' });
+    }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`--- SERVER ĐANG CHẠY TẠI CỔNG ${PORT} ---`);
 });

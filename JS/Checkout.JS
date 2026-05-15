@@ -89,27 +89,46 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Kiểm tra các trường bắt buộc
+            // 1. LẤY HỌ VÀ TÊN RỒI GHÉP LẠI
+            const hoInput = document.getElementById('checkout-ho');
+            const tenInput = document.getElementById('checkout-ten');
+
+            const ho = hoInput ? hoInput.value.trim() : "";
+            const ten = tenInput ? tenInput.value.trim() : "";
+            const fullName = (ho + " " + ten).trim();
+
+            let isNameOk = false;
+            if (!ho || !ten) {
+                alert("Vui lòng nhập đầy đủ Họ và Tên để giao hàng!");
+                if (hoInput && !ho) hoInput.classList.add('input-error');
+                if (tenInput && !ten) tenInput.classList.add('input-error');
+            } else {
+                isNameOk = true;
+            }
+
+            // 2. Kiểm tra các trường bắt buộc khác
             const isEmailOk = validateField('email', 'group-email');
-            const isLastNameOk = validateField('lastname', 'group-lastname');
             const isProvinceOk = validateField('province', 'group-province');
             const isDistrictOk = validateField('district', 'group-district');
             const isWardOk = validateField('ward', 'group-ward');
             const isAddressOk = validateField('address', 'group-address');
             const isPhoneOk = validateField('phone', 'group-phone');
 
-            if (isEmailOk && isLastNameOk && isProvinceOk && isDistrictOk && isWardOk && isAddressOk && isPhoneOk) {
+            // 3. Nếu tất cả đều OK thì gom data
+            if (isEmailOk && isNameOk && isProvinceOk && isDistrictOk && isWardOk && isAddressOk && isPhoneOk) {
                 const submitBtn = document.querySelector('.btn-pay-now');
 
-                // Gom dữ liệu
+                // Gom dữ liệu địa chỉ và tiền
                 const fullAddress = `${document.getElementById('address').value.trim()}, ${document.getElementById('ward').value}, ${document.getElementById('district').value}`;
                 const cityName = document.getElementById('province').value;
                 const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
                 const finalTotal = (subtotal - (subtotal * discountPercent / 100)) + shippingCost;
 
+                // ĐÓNG GÓI DỮ LIỆU ĐỂ GỬI LÊN SERVER
                 pendingOrderData = {
                     email: currentUserEmail,
-                    lastname: document.getElementById('lastname').value.trim(),
+                    customer_name: fullName, // <-- Gửi tên đã ghép (Ví dụ: "Độ Mixi")
+                    lastname: fullName,      // <-- Backup key cũ đề phòng backend cần
                     address: fullAddress,
                     city: cityName,
                     phone: document.getElementById('phone').value.trim(),
@@ -117,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     total_amount: finalTotal,
                     payment_method: paymentMethod
                 };
+
+                // KIỂM TRA PHƯƠNG THỨC THANH TOÁN
 
                 // KIỂM TRA PHƯƠNG THỨC THANH TOÁN
                 if (paymentMethod === 'cod') {
@@ -175,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hàm gọi API lưu vào Database (Tách ra để xài chung cho cả COD và MoMo)
     async function processOrderToServer(orderData, submitBtn) {
         try {
-            const response = await fetch('http://localhost:3000/api/orders', {
+            const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
@@ -201,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     async function loadCheckoutCart() {
         try {
-            const response = await fetch(`http://localhost:3000/api/cart/${currentUserEmail}`);
+            const response = await fetch(`https://haru-shop-backend-production.up.railway.app/api/cart/${currentUserEmail}`);
             const cartData = await response.json();
             renderCheckoutItems(cartData);
         } catch (error) {
@@ -325,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // Hỏi Server xem mã này có thật không
-                const response = await fetch('http://localhost:3000/api/coupons/check', {
+                const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/coupons/check', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: code })

@@ -105,11 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // ==========================================
-            // LOGIC PHÂN QUYỀN ADMIN (CHỈ CHỦ SHOP MỚI THẤY NÚT QUẢN TRỊ)
+            // LOGIC PHÂN QUYỀN ADMIN (KIỂM TRA ROLE TỪ DATABASE)
             // ==========================================
-            const adminEmail = 'linn70180@gmail.com'; // Sếp điền đúng email Chủ shop của sếp vào đây nhé
-
-            if (currentUser.email === adminEmail) {
+            // Xóa cái dòng check email cứng đi, dùng role cho bảo mật 100%
+            if (currentUser.role === 'admin') {
                 const dropdownMenu = document.querySelector('#user-menu-logged-in .user-dropdown-menu');
 
                 // Kiểm tra để tránh tạo 2 nút nếu lỡ script chạy 2 lần
@@ -250,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Gọi Server ngầm, nếu lỗi thì bỏ qua không in ra màn hình
         if (allProducts.length === 0) {
             try {
-                const res = await fetch('http://localhost:3000/api/products');
+                const res = await fetch('https://haru-shop-backend-production.up.railway.app/api/products');
                 if (res.ok) {
                     const data = await res.json();
                     allProducts = Array.isArray(data) ? data : (data.products || data.data || []);

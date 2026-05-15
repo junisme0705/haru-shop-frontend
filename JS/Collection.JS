@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const outOfStock = outOfStockCheckbox?.checked ? 'true' : 'false';
 
         // --- CẬP NHẬT: Gắn thêm inStock và outOfStock vào chuỗi URL ---
-        const url = `http://localhost:3000/api/products/filter?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&in_stock=${inStock}&out_of_stock=${outOfStock}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
+        const url = `https://haru-shop-backend-production.up.railway.app/api/products/filter?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&in_stock=${inStock}&out_of_stock=${outOfStock}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
 
         try {
             const response = await fetch(url);
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (path.includes('accessories')) category = 'accessories';
 
             // Gắn thêm category vào URL để backend đếm đúng loại
-            const response = await fetch(`http://localhost:3000/api/products/stock-stats?category=${category}`);
+            const response = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/stock-stats?category=${category}`);
             const data = await response.json();
 
             const inStockSpan = document.getElementById('count-in-stock');

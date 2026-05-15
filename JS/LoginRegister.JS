@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loginButton.innerText = 'ĐANG KẾT NỐI SERVER...';
 
             try {
-                const response = await fetch('http://localhost:3000/api/login', {
+                const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             registerButton.innerText = 'ĐANG GỬI DỮ LIỆU...';
 
             try {
-                const response = await fetch('http://localhost:3000/api/register', {
+                const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, username, password })

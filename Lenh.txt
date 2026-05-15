@@ -1,8 +1,8 @@
 Chạy sever nodejs
 cd sever
+
+
 nodemon server.js
-
-
 Lệnh SQL
 
 

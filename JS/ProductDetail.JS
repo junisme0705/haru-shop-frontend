@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // TẢI DỮ LIỆU
     try {
-        const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+        const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${productId}`);
         productData = await res.json();
 
         if (productData.colors && typeof productData.colors === 'string') {
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.getElementById('btn-add-to-cart')?.addEventListener('click', async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/cart', {
+                const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/cart', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -304,4 +304,322 @@ document.addEventListener('DOMContentLoaded', async () => {
             setTimeout(() => { window.location.href = 'Checkout.HTML'; }, 500);
         });
     }
+});
+
+/* ==========================================
+   XỬ LÝ ĐÁNH GIÁ SẢN PHẨM (REVIEWS)
+   ========================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    // Lấy ID sản phẩm từ trên thanh URL (Ví dụ: ?id=18)
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    const btnOpenReview = document.getElementById('btn-open-review');
+    const reviewFormContainer = document.getElementById('review-form-container');
+    const submitReviewBtn = document.getElementById('submit-review-btn');
+    const reviewErrorMsg = document.getElementById('review-error-msg');
+
+    if (productId) {
+        fetchReviews(productId);
+    }
+
+    // 1. Hàm tạo số lượng ngôi sao HTML
+    function generateStars(rating) {
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) starsHtml += '<i class="fas fa-star" style="color: #f5c518;"></i>';
+            else starsHtml += '<i class="far fa-star" style="color: #ccc;"></i>';
+        }
+        return starsHtml;
+    }
+
+    // 2. Hàm Tải danh sách đánh giá từ Server
+    async function fetchReviews(id) {
+        try {
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${id}/reviews`);
+            const data = await res.json();
+
+            // Cập nhật điểm trung bình
+            document.getElementById('avg-rating-text').innerText = `${data.averageRating}/5`;
+            document.getElementById('total-reviews-text').innerText = `(${data.totalReviews} lượt đánh giá)`;
+            document.getElementById('avg-stars').innerHTML = generateStars(Math.round(data.averageRating));
+
+            // Render danh sách comment
+            const listContainer = document.getElementById('reviews-list-container');
+            if (data.reviews.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: #777;">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>';
+                return;
+            }
+
+            listContainer.innerHTML = data.reviews.map(rev => {
+                const dateObj = new Date(rev.created_at);
+                const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+                return `
+                    <div class="review-item" style="border-bottom: 1px solid #eaeaea; padding: 20px 0;">
+                        <div class="review-header" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <strong>${rev.username}</strong>
+                            <span style="color: #999; font-size: 13px;">${formattedDate}</span>
+                        </div>
+                        <div class="stars">${generateStars(rev.rating)}</div>
+                        <p style="margin-top: 10px; color: #555; line-height: 1.5;">${rev.comment}</p>
+                    </div>
+                `;
+            }).join('');
+
+        } catch (err) {
+            console.error("Lỗi tải đánh giá:", err);
+        }
+    }
+
+    // HÀM LẤY EMAIL TỪ ĐÚNG KEY "haru-current-user"
+    function getLoggedInEmail() {
+        // 1. Lấy đúng cái cục dữ liệu từ kho chứa mà sếp đang dùng
+        const userDataString = localStorage.getItem('haru-current-user');
+
+        if (userDataString) {
+            try {
+                // 2. Dịch cái cục chuỗi đó thành Object để lấy ra email
+                const userObj = JSON.parse(userDataString);
+                return userObj.email; // Kết quả sẽ là babyjun0705@gmail.com
+            } catch (error) {
+                console.error("Lỗi đọc dữ liệu:", error);
+            }
+        }
+
+        // 3. Nếu không có gì thì xác nhận là chưa đăng nhập
+        return null;
+    }
+
+    // 3. Xử lý khi bấm nút "Viết đánh giá"
+    btnOpenReview.addEventListener('click', () => {
+        const userEmail = getLoggedInEmail();
+
+        if (!userEmail) {
+            // Thay vì alert, giờ mình gọi Modal xịn lên
+            document.getElementById('login-modal').classList.add('active');
+            return;
+        }
+
+        // Đã đăng nhập thì mở/đóng form
+        reviewFormContainer.style.display = reviewFormContainer.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // ------------------------------------------
+    // XỬ LÝ 2 NÚT BẤM TRONG BẢNG THÔNG BÁO
+    // ------------------------------------------
+    document.getElementById('btn-cancel-login').addEventListener('click', () => {
+        // Tắt Modal
+        document.getElementById('login-modal').classList.remove('active');
+    });
+
+    // TẮT MODAL THÀNH CÔNG KHI BẤM NÚT
+    document.getElementById('btn-close-success').addEventListener('click', () => {
+        document.getElementById('success-modal').classList.remove('active');
+    });
+
+    document.getElementById('btn-go-to-login').addEventListener('click', () => {
+        // Chuyển hướng sang trang đăng nhập
+        window.location.href = 'Login.HTML';
+    });
+
+
+    // ==========================================
+    // HIỆU ỨNG DI CHUỘT VÀ CHỌN SAO ĐÁNH GIÁ
+    // ==========================================
+    const starBtns = document.querySelectorAll('.star-btn');
+    const ratingHiddenInput = document.getElementById('review-rating');
+    const ratingTextDisplay = document.getElementById('rating-text-display');
+    const ratingLabels = ["Tệ", "Không hài lòng", "Bình thường", "Rất tốt", "Tuyệt vời"];
+
+    let selectedRating = 5; // Lưu điểm thực tế đã click chọn (mặc định 5)
+
+    // Hàm tô màu sao từ 1 đến vị trí truyền vào
+    function colorizeStars(count) {
+        starBtns.forEach(star => {
+            const starVal = parseInt(star.getAttribute('data-value'));
+            if (starVal <= count) {
+                star.classList.remove('far'); // Bỏ sao rỗng
+                star.classList.add('fas');    // Thêm sao đặc
+                star.style.color = '#f5c518'; // Màu vàng
+            } else {
+                star.classList.remove('fas');
+                star.classList.add('far');
+                star.style.color = '#ccc';    // Màu xám
+            }
+        });
+    }
+
+    starBtns.forEach(star => {
+        // 1. Khi chuột lướt ngang qua (Hover)
+        star.addEventListener('mouseover', function () {
+            const hoverValue = parseInt(this.getAttribute('data-value'));
+            colorizeStars(hoverValue);
+            ratingTextDisplay.innerText = ratingLabels[hoverValue - 1];
+            this.style.transform = 'scale(1.2)'; // Phóng to nhẹ cho có tương tác
+        });
+
+        // Lướt qua xong thì thu nhỏ lại
+        star.addEventListener('mouseout', function () {
+            this.style.transform = 'scale(1)';
+        });
+
+        // 2. Khi chuột rời khỏi khu vực sao (Trả về trạng thái đã click)
+        star.parentElement.addEventListener('mouseleave', function () {
+            colorizeStars(selectedRating);
+            ratingTextDisplay.innerText = ratingLabels[selectedRating - 1];
+        });
+
+        // 3. Khi bấm Click chốt sổ
+        star.addEventListener('click', function () {
+            selectedRating = parseInt(this.getAttribute('data-value'));
+            ratingHiddenInput.value = selectedRating; // Lưu vào thẻ ẩn để gửi lên Server
+            colorizeStars(selectedRating);
+            ratingTextDisplay.innerText = ratingLabels[selectedRating - 1];
+        });
+    });
+
+    // 4. Xử lý Gửi Đánh Giá lên Server (Nhớ update lại hàm getLoggedInEmail ở đây)
+    submitReviewBtn.addEventListener('click', async () => {
+        const rating = document.getElementById('review-rating').value;
+        const comment = document.getElementById('review-comment').value.trim();
+        const userEmail = getLoggedInEmail(); // <--- Đổi thành hàm getLoggedInEmail
+
+        // ... (Giữ nguyên đoạn code kiểm tra và fetch gửi đánh giá bên dưới của sếp)
+        if (!comment) {
+            reviewErrorMsg.innerText = "Vui lòng nhập nội dung đánh giá!";
+            reviewErrorMsg.style.display = 'block';
+            return;
+        }
+
+        submitReviewBtn.disabled = true;
+        submitReviewBtn.innerText = "Đang gửi...";
+        reviewErrorMsg.style.display = 'none';
+
+        try {
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${productId}/reviews`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, rating: rating, comment: comment })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                try {
+                    const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${productId}/reviews`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: userEmail, rating: ratingHiddenInput.value, comment: comment })
+                    });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        // XÓA ALERT CŨ, GỌI MODAL XỊN LÊN
+                        document.getElementById('success-modal').classList.add('active');
+
+                        // Ẩn form và dọn dẹp sạch sẽ
+                        reviewFormContainer.style.display = 'none';
+                        document.getElementById('review-comment').value = '';
+                        reviewErrorMsg.style.display = 'none'; // Đảm bảo giấu nhẹm cái chữ đỏ đi
+
+                        // Trả dàn sao về lại 5 sao mặc định
+                        selectedRating = 5;
+                        ratingHiddenInput.value = 5;
+                        colorizeStars(5);
+                        ratingTextDisplay.innerText = "Tuyệt vời";
+
+                        // Tải lại danh sách comment
+                        fetchReviews(productId);
+                    } else {
+                        reviewErrorMsg.innerText = data.message;
+                        reviewErrorMsg.style.display = 'block';
+                    }
+                } catch (err) {
+                    reviewErrorMsg.innerText = "Lỗi kết nối Server!";
+                    reviewErrorMsg.style.display = 'block';
+                } finally {
+                    submitReviewBtn.disabled = false;
+                    submitReviewBtn.innerText = "Gửi đánh giá";
+                }
+            } else {
+                reviewErrorMsg.innerText = data.message;
+                reviewErrorMsg.style.display = 'block';
+            }
+        } catch (err) {
+            reviewErrorMsg.innerText = "Lỗi kết nối Server!";
+            reviewErrorMsg.style.display = 'block';
+        } finally {
+            submitReviewBtn.disabled = false;
+            submitReviewBtn.innerText = "Gửi đánh giá";
+        }
+    });
+
+    // 4. XỬ LÝ GỬI ĐÁNH GIÁ LÊN SERVER (BẢN CHỐT HẠ)
+    submitReviewBtn.addEventListener('click', async () => {
+        // Gom dữ liệu tại thời điểm bấm nút
+        const ratingHiddenInput = document.getElementById('review-rating');
+        const rating = ratingHiddenInput ? ratingHiddenInput.value : 5;
+        const comment = document.getElementById('review-comment').value.trim();
+        const userEmail = getLoggedInEmail(); // Gọi lại hàm tìm email 
+
+        // Kiểm tra xem đã nhập chữ chưa
+        if (!comment) {
+            reviewErrorMsg.innerText = "Vui lòng nhập nội dung đánh giá!";
+            reviewErrorMsg.style.display = 'block';
+            return;
+        }
+
+        // Chặn lỗi "rớt" email trước khi gửi lên Server
+        if (!userEmail) {
+            reviewErrorMsg.innerText = "Lỗi nhận diện tài khoản. Sếp F5 tải lại trang nhé!";
+            reviewErrorMsg.style.display = 'block';
+            return;
+        }
+
+        // Thay đổi nút bấm cho sinh động
+        submitReviewBtn.disabled = true;
+        submitReviewBtn.innerText = "Đang gửi...";
+        reviewErrorMsg.style.display = 'none';
+
+        try {
+            // Gửi thẳng lên Server
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${productId}/reviews`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, rating: rating, comment: comment })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                // XÓA ALERT, GỌI MODAL TICK XANH XỊN SÒ
+                document.getElementById('success-modal').classList.add('active');
+
+                // Ẩn form nhập liệu và dọn sạch chữ vừa nhập
+                reviewFormContainer.style.display = 'none';
+                document.getElementById('review-comment').value = '';
+                reviewErrorMsg.style.display = 'none';
+
+                // Trả dàn sao về lại 5 sao mặc định
+                if (typeof colorizeStars === 'function') {
+                    selectedRating = 5;
+                    ratingHiddenInput.value = 5;
+                    colorizeStars(5);
+                    document.getElementById('rating-text-display').innerText = "Tuyệt vời";
+                }
+
+                // Tải lại danh sách comment để hiện ngay bình luận mới
+                fetchReviews(productId);
+            } else {
+                // Nếu Server báo lỗi gì thì in ra chữ đỏ
+                reviewErrorMsg.innerText = data.message;
+                reviewErrorMsg.style.display = 'block';
+            }
+        } catch (err) {
+            reviewErrorMsg.innerText = "Lỗi kết nối Server! Sếp kiểm tra lại Backend nhé.";
+            reviewErrorMsg.style.display = 'block';
+        } finally {
+            // Khôi phục nút bấm
+            submitReviewBtn.disabled = false;
+            submitReviewBtn.innerText = "Gửi đánh giá";
+        }
+    });
 });

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function openQuickView(id) {
         try {
             // Lôi dữ liệu từ Server
-            const res = await fetch(`http://localhost:3000/api/products/${id}`);
+            const res = await fetch(`https://haru-shop-backend-production.up.railway.app/api/products/${id}`);
             const product = await res.json();
 
             if (!product || product.error) {
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnAddToCart.style.opacity = "0.7";
 
             try {
-                const response = await fetch('http://localhost:3000/api/cart', {
+                const response = await fetch('https://haru-shop-backend-production.up.railway.app/api/cart', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

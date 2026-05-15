@@ -911,3 +911,454 @@ body.cart-open {
 
     /* ... giữ nguyên các phần dưới ... */
 }
+
+/* =======================================
+   11. BÀI VIẾT MỚI NHẤT
+   ======================================= */
+.latest-news-section {
+    padding: 20px 0 80px 0;
+    /* Đổi 20px ở hai bên trái phải thành 0 */
+    background-color: #fff;
+}
+
+.news-container {
+    max-width: 1500px;
+
+    margin: 0 auto;
+}
+
+.news-subtitle-row {
+    position: relative;
+    text-align: center;
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.news-subtitle-row p {
+    margin: 0;
+    display: inline-block;
+}
+
+.view-all-link {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.view-all-link:hover {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.news-card {
+    border: 1px solid #e5e7eb;
+    /* Viền siêu mỏng, xám nhạt */
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    /* Hover vào sẽ nảy lên nhẹ */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.news-img {
+    width: 100%;
+    height: 220px;
+    /* Cố định chiều cao ảnh để 3 bài viết bằng nhau */
+    overflow: hidden;
+}
+
+.news-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-img img {
+    transform: scale(1.05);
+    /* Hover vào ảnh zoom nhẹ lên */
+}
+
+.news-content {
+    padding: 25px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+    color: #111;
+}
+
+.news-date {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.news-excerpt {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    /* Đẩy chữ "Xem Chi Tiết" xuống sát đáy */
+}
+
+.news-readmore {
+    font-size: 14px;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    align-self: flex-start;
+    transition: color 0.3s;
+}
+
+.news-readmore:hover {
+    color: #007bff;
+}
+
+/* HIỆU ỨNG TRÊN ĐIỆN THOẠI */
+@media (max-width: 900px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* Tablet hiển thị 2 cột */
+    }
+
+    .view-all-link {
+        position: static;
+        display: block;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+        /* Điện thoại hiển thị 1 cột */
+    }
+}
+
+/* =======================================
+   12. PHẦN SEO & FAQ CUỐI TRANG
+   ======================================= */
+.seo-footer-section {
+    background-color: #fff;
+    padding: 60px 20px;
+    border-top: 1px solid #eaeaea;
+    /* Đường gạch mỏng phân cách ở trên */
+}
+
+.seo-container {
+    max-width: 1600px;
+    /* Thu hẹp lại một chút để chữ không bị dàn hàng quá dài gây mỏi mắt */
+    margin: 0 auto;
+    color: #333;
+}
+
+/* Kiểu dáng chữ cho phần bài viết */
+.seo-content-block {
+    margin-bottom: 60px;
+}
+
+.seo-content-block h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.seo-content-block h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 35px 0 15px 0;
+    color: #222;
+}
+
+.seo-content-block p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 15px;
+    margin-right: 0;
+    /* Reset lại margin-right của thẻ p gốc */
+    text-align: justify;
+    /* Căn đều hai bên cho giống báo chí */
+}
+
+/* Kiểu dáng cho phần FAQ */
+.faq-main-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #111;
+}
+
+.faq-item {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.faq-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 20px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.faq-btn:hover {
+    color: #007bff;
+}
+
+.faq-btn>i.fa-comment-alt {
+    margin-right: 12px;
+    font-size: 14px;
+    color: #888;
+}
+
+.faq-icon {
+    margin-left: auto;
+    /* Đẩy icon + sang tít bên phải */
+    width: 24px;
+    height: 24px;
+    background-color: #111;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.faq-btn.active .faq-icon {
+    background-color: #007bff;
+    transform: rotate(180deg);
+}
+
+.faq-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-panel p {
+    padding-bottom: 20px;
+    padding-left: 28px;
+    /* Thụt lề vào cho khớp với icon comment */
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* ==========================================
+   CSS CHO PHẦN ĐÁNH GIÁ SẢN PHẨM
+   ========================================== */
+/* ==========================================
+   CSS CHO PHẦN ĐÁNH GIÁ SẢN PHẨM (ĐÃ MỞ RỘNG)
+   ========================================== */
+.product-reviews-container {
+    max-width: 1500px;
+    /* Mở rộng tối đa để không bị co rúm ở giữa */
+    width: 90%;
+    /* Chiếm 90% màn hình, để lại lề 2 bên mỏng vừa phải */
+    margin: 60px auto;
+    padding: 40px 0;
+    border-top: 1px solid #ddd;
+    /* Đường kẻ ngang (HR) dài ra và rõ nét hơn */
+}
+
+.product-reviews-container h3 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #111;
+}
+
+.reviews-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 30px 40px;
+    /* Tăng padding cho khung review rộng rãi hơn */
+    border-radius: 12px;
+    margin-bottom: 40px;
+}
+
+.average-rating h2 {
+    font-size: 42px;
+    margin: 0 0 5px 0;
+    color: #111;
+}
+
+.average-rating p {
+    color: #666;
+    margin: 5px 0 0 0;
+    font-size: 14px;
+}
+
+.stars i {
+    color: #f5c518;
+    /* Màu vàng chuẩn của sao đánh giá */
+    font-size: 18px;
+}
+
+.btn-write-review {
+    padding: 12px 24px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-write-review:hover {
+    background-color: #333;
+}
+
+.review-item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 0;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.review-header strong {
+    font-size: 16px;
+    color: #333;
+}
+
+.review-date {
+    color: #999;
+    font-size: 13px;
+}
+
+.review-content {
+    margin-top: 12px;
+    color: #555;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ==========================================
+   CSS CHO MODAL THÔNG BÁO TÙY CHỈNH
+   ========================================== */
+.custom-modal {
+    display: none;
+    /* Ẩn mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Nền đen mờ */
+    z-index: 9999;
+    /* Luôn nổi lên trên cùng */
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal.active {
+    display: flex;
+    /* Kích hoạt hiện Modal */
+}
+
+.custom-modal .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.modal-buttons button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background-color: #e2e2e2;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

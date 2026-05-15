@@ -144,6 +144,57 @@
 
     <div id="extended-info-wrapper"></div>
 
+    <!-- ========================================== -->
+    <!-- PHẦN ĐÁNH GIÁ CỦA KHÁCH HÀNG               -->
+    <!-- ========================================== -->
+    <section class="product-reviews-container">
+        <h3>Đánh giá từ khách hàng</h3>
+
+        <div class="reviews-summary">
+            <div class="average-rating">
+                <h2 id="avg-rating-text">0/5</h2>
+                <div class="stars" id="avg-stars">
+                    <!-- Javascript sẽ tự chèn sao vào đây -->
+                </div>
+                <p id="total-reviews-text">(0 lượt đánh giá)</p>
+            </div>
+            <button class="btn-write-review" id="btn-open-review">Viết đánh giá</button>
+        </div>
+
+        <!-- KHUNG NHẬP ĐÁNH GIÁ (Ẩn mặc định) -->
+        <div id="review-form-container"
+            style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h4 style="margin-bottom: 15px;">Đánh giá của bạn</h4>
+            <!-- DÀN SAO TƯƠNG TÁC CHỌN ĐIỂM -->
+            <div id="interactive-stars-container"
+                style="margin-bottom: 15px; display: flex; align-items: center; gap: 5px; font-size: 24px; cursor: pointer;">
+                <!-- Mặc định chọn sẵn 5 sao -->
+                <i class="fas fa-star star-btn" data-value="1" style="color: #f5c518; transition: transform 0.2s;"></i>
+                <i class="fas fa-star star-btn" data-value="2" style="color: #f5c518; transition: transform 0.2s;"></i>
+                <i class="fas fa-star star-btn" data-value="3" style="color: #f5c518; transition: transform 0.2s;"></i>
+                <i class="fas fa-star star-btn" data-value="4" style="color: #f5c518; transition: transform 0.2s;"></i>
+                <i class="fas fa-star star-btn" data-value="5" style="color: #f5c518; transition: transform 0.2s;"></i>
+
+                <span id="rating-text-display"
+                    style="font-size: 15px; color: #555; margin-left: 10px; font-weight: bold;">Tuyệt vời</span>
+            </div>
+
+            <!-- TRICK LỎ: Dùng 1 input ẩn giữ ID cũ để code lúc Gửi không bị lỗi -->
+            <input type="hidden" id="review-rating" value="5">
+            <textarea id="review-comment" rows="4" placeholder="Sản phẩm này thế nào? Dịch vụ shop ra sao?..."
+                style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; resize: vertical;"></textarea>
+            <button id="submit-review-btn" class="btn-write-review" style="width: 100%; background: #007bff;">Gửi đánh
+                giá</button>
+            <p id="review-error-msg"
+                style="color: red; font-size: 14px; margin-top: 10px; display: none; text-align: center;"></p>
+        </div>
+
+        <!-- Nơi chứa các comment thật -->
+        <div class="reviews-list" id="reviews-list-container">
+            <p style="text-align: center; color: #777;">Đang tải đánh giá...</p>
+        </div>
+    </section>
+
     <hr style="border: 1px solid black; width: 100%;">
     <footer class="main-footer-content">
         <div class="footer-top-line"></div>
@@ -251,6 +302,36 @@
     <script src="../JS/Wishlist.JS"></script>
     <script src="../JS/Cart.JS"></script>
     <script src="../JS/ProductDetail.JS"></script>
+
+    <!-- ========================================== -->
+    <!-- MODAL THÔNG BÁO YÊU CẦU ĐĂNG NHẬP          -->
+    <!-- ========================================== -->
+    <div id="login-modal" class="custom-modal">
+        <div class="modal-content">
+            <h4 style="margin-top: 0; font-size: 20px; color: #111;">Yêu cầu đăng nhập</h4>
+            <p style="color: #555; margin: 15px 0 25px; font-size: 15px;">Sếp cần đăng nhập tài khoản để có thể viết
+                đánh giá nhé!</p>
+            <div class="modal-buttons">
+                <button id="btn-cancel-login" class="btn-cancel">Hủy</button>
+                <button id="btn-go-to-login" class="btn-login">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL THÔNG BÁO ĐÁNH GIÁ THÀNH CÔNG        -->
+    <!-- ========================================== -->
+    <div id="success-modal" class="custom-modal">
+        <div class="modal-content" style="text-align: center;">
+            <div style="font-size: 50px; color: #28a745; margin-bottom: 15px;">
+                <i class="fas fa-check-circle"></i> <!-- Icon dấu tick xanh -->
+            </div>
+            <h4 style="margin-top: 0; font-size: 22px; color: #111;">Thành công!</h4>
+            <p style="color: #555; margin: 15px 0 25px; font-size: 15px;">Cảm ơn sếp đã để lại đánh giá cho sản phẩm
+                này.</p>
+            <button id="btn-close-success" class="btn-login" style="width: 100%;">Tuyệt vời</button>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 /* Bố cục chính của trang Profile */
 .profile-container {
-    max-width: 900px;
+    max-width: 1300px;
     margin: 0 auto 100px auto;
     padding: 0 20px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

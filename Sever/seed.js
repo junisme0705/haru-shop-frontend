@@ -1,17 +1,18 @@
 const { Pool } = require('pg');
 const fs = require('fs');
+require('dotenv').config(); // <--- GỌI KÉT SẮT RA
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'haru_shop',
-    password: '123456',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
 });
 
 const seedProducts = async () => {
+    // ... (Đoạn code ở dưới sếp giữ nguyên 100%, không cần sửa gì cả)
     try {
-        // 1. Đọc file JSON sản phẩm
         const data = JSON.parse(fs.readFileSync('./products.json', 'utf8'));
 
         console.log("Đang bắt đầu đổ dữ liệu...");
