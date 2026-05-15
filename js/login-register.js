@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     loginButton.style.backgroundColor = '#28a745'; // Màu xanh lá
 
                     setTimeout(() => {
-                        window.location.href = 'Index.HTML';
+                        window.location.href = 'index.html';
                     }, 1000);
 
                 } else {
